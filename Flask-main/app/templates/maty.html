@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cat Casino</title>
+    <title>Slots Game</title>
     <style>
+        /* Include the CSS styles from the original file */
         body {
-            background-image: url('../static/cat_background.jpg'); /* Replace 'cat_background.jpg' with your cat-themed background image */
+            background-image: url('../static/cat_background.jpg');
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
-        
+
         header {
             background-color: #333;
             color: #fff;
@@ -22,23 +23,23 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         nav {
             text-align: center;
             background-color: #444;
             padding: 10px 0;
         }
-        
+
         nav a {
             text-decoration: none;
             color: #fff;
             padding: 10px 20px;
         }
-        
+
         nav a:hover {
             background-color: #555;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -68,50 +69,28 @@
             border-radius: 5px;
             cursor: pointer;
         }
-    </style>
-</head>
-<body>
-    <header>
-      <div id="user-info">
-        <div id="user-details">
-            <img src="../static/avatar.jpg" alt="Cat Avatar">
-            <span id="user-name">Guest</span>
-        </div>
-        <span id="timer">Time Remaining: <span id="time-remaining">30:00</span></span>
-        <div id="logout-btn">Odhlásit</div>
-    </div>
-    <div id="money-counter">
-        <img src="../static/coin.png" alt="Cat Money">
-        <span id="money-amount">$1000</span>
-    </div>
-</header>
-    <nav>
-        <a href="/ruleta">Roulette</a>
-        <a href="/crash">Crash</a>
-        <a href="/maty">Slots</a>
-        <a href="/blackjack">Blackjack</a>
-    </nav>
-    
-    <div class="container">
-        <section id="roulette">
-            <h2>Roulette</h2>            <!-- Add roulette game content here -->
-        </section>
-        <section id="crash">
-            <h2>Crash</h2>
-            <!-- Add Crash game content here -->
-        </section>
-        <section id="slots">
-            <h2>Slots</h2>
-            <!-- Add Slots game content here -->
-        </section>
-        <section id="blackjack">
-            <h2>Blackjack</h2>
-            <!-- Add Blackjack game content here -->
-        </section>
-    </div>
 
-    <style>
-      /* ... Your existing CSS styles ... */
+        #money-counter {
+            display: flex;
+            align-items: center;
+        }
+
+        #money-amount {
+            font-size: 24px;
+        }
+
+        #user-details {
+            display: flex;
+            align-items: center;
+        }
+
+        #user-name {
+            margin-right: 10px;
+        }
+
+        #timer {
+            margin-right: 10px;
+        }
   
       #user-info {
           display: flex;
@@ -157,8 +136,36 @@
             cursor: pointer;
             margin-right: 10px;
         }
-  </style>
-  
-  
+
+    </style>
+</head>
+<body>
+    <header>
+        <div id="user-info">
+            <div id="user-details">
+                <img src="../static/avatar.jpg" alt="Cat Avatar">
+                <span id="user-name">Guest</span>
+            </div>
+            <span id="timer">Time Remaining: <span id="time-remaining">30:00</span></span>
+            <div id="logout-btn">Odhlásit</div>
+        </div>
+        <div id="money-counter">
+            <img src="../static/coin.png" alt="Cat Money">
+            <span id="money-amount">$1000</span>
+        </div>
+    </header>
+    <nav>
+        <a href="/ruleta">Roulette</a>
+        <a href="/crash">Crash</a>
+        <a href="/maty">Slots</a>
+        <a href="/blackjack">Blackjack</a>
+    </nav>
+    
+    <div class="container">
+        <section id="slots">
+            <h2>Slots</h2>
+            <p>Try your luck with the slot machines!</p>
+        </section>
+    </div>
 </body>
 </html>
