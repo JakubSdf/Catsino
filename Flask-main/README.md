@@ -9,5 +9,5 @@ V Catsinu nabízíme špičkové kasinové hry, které nejlépe doplňují koči
 
     Ruleta: Zkusíte své štěstí na kole a uvidíte, jestli máte šanci na velké výhry.
     Crash: Sledujte vzestup a rozhodněte se, kdy je ten správný čas získat vaši výhru.
-    Točky: Zajděte naší skvělé automaty a užijte si různorodé hry s atraktivními výhrami.
+    Automaty: Zajděte na naše skvělé automaty a užijte si různorodé hry s atraktivními výhrami.
     Blackjack: Vyzkoušejte své dovednosti v této klasické karetní hře a porazte dealera.
