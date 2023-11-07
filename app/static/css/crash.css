@@ -127,100 +127,200 @@ margin-right: 10px; /* Add margin-right to create space between timer and logout
     margin-right: 10px;
 }
 
-/* Add this CSS for the Crash game section */
-#crash {
+/* GAME CSS */
+
+#game-container {
+    background-color: #696969; /* Set the background color for your game window */
+    width: 80%; /* Adjust the width as needed */
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the game window horizontally */
+    padding: 10px;
+    border: 1px solid #000; /* Add a border if desired */
+    border-radius: 5px;
+    display: flex; /* Use flexbox to create a horizontal layout */
+    justify-content: space-between;
+}
+
+/* GRAPH */
+
+#graph-window {
+    background-color: #222; /* Set the background color for the graph window */
+    color: #fff; /* Text color */
+    padding: 70px;
+    border: 1px solid #333; /* Border color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+    text-align: center;
+    position: relative;
+}
+
+#graph-window h1 {
+    font-size: 24px;
+    margin: 0 0 20px; /* Spacing below the heading */
+}
+
+#graph-window p {
+    font-size: 18px;
+}
+
+#graph-window img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Center the image within the container */
+    margin: 0 auto;
+}
+
+#multiplier-value {
+    font-weight: bold;
+    font-size: 40px; /* Adjust the font size as needed */
+    color: #FFD700; /* Text color for the multiplier value */
+    padding: 10px'
+}
+
+/* BET WINDOW */
+#betting-window {
+    background-color: #333; /* Background color for the betting window */
+    color: #fff; /* Text color */
+    padding: 60px;
+    border: 1px solid #555; /* Border color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
     text-align: center;
 }
 
-#game-container {
-    background-color: rgb(300, 300, 300);
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 100%; /* Set the width to 100% to expand to the full width of its parent */
-    max-width: 800px; /* Set a maximum width to constrain the game-container */
-    margin: 0 auto; /* Center the game-container horizontally */
+#betting-window label {
+    font-size: 25px;
+    display: block;
 }
 
-#bet-container {
-    margin-bottom: 10px;
+#bet-amount {
+    width: 125px; /* Adjust the width of the input field as needed */
+    font-size: 18px;
+    padding: 8px;
+    border: 1px solid #777; /* Input border color */
+    border-radius: 5px;
+    margin: 10px 0;
+    color: #333; /* Input text color */
+    background-color: #fff; /* Input background color */
 }
 
-#betInput {
-    width: 100px;
-    padding: 5px;
+
+#place-bet,
+#cash-out {
+    font-size: 20px;
 }
 
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-
-
-#placeBet,
-#cashOut {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+#place-bet {
+    padding: 8px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #2ecc71; /* Change color to your preference */
+    color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Add transitions for smooth effects */
+}
+
+#place-bet:hover {
+    background-color: #27ae60; /* Darken the color slightly on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a slight shadow on hover */
+    transform: scale(1.05); /* Slightly scale the button on hover */
+}
+
+#cash-out {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e74c3c; /* Change color to your preference */
+    color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Add transitions for smooth effects */
+}
+
+#cash-out:hover {
+    background-color: #c0392b; /* Darken the color slightly on hover */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a slight shadow on hover */
+    transform: scale(1.05); /* Slightly scale the button on hover */
+}
+
+#presets {
+    display: flex;
+    align-items: center;
+}
+
+.preset {
+    margin-right: 10px; /* Adjust the margin between buttons as needed */
+    text-align: center; /* Center-align the button text */
+    padding: 8px 12px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Define different background colors for the buttons */
+.preset:nth-child(1) {
+    background-color: #3498db;
+}
+
+.preset:nth-child(2) {
+    background-color: #6d27ae;
+}
+
+.preset:nth-child(3) {
+    background-color: rgb(247, 154, 5);
+}
+
+/* Hover effect */
+.preset:hover {
+    opacity: 0.8;
+}
+
+
+#countdown {
+    font-size: 25px;
+    margin: 10px 0;
+}
+
+#game-content {
+    font-size: 20px;    
+    margin: 10px 0;
+    opacity: 0;
+}
+
+/* HISTORY */
+
+#history-container {
+    background-color: #333; /* Background color for the history window */
+    color: #fff; /* Text color */
+    padding: 60px;
+    border: 1px solid #555; /* Border color */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+}
+
+#history-window h2 {
+    font-size: 22px;
+    margin: 0 0 20px; /* Spacing below the heading */
+}
+
+#multiplier-history {
+    list-style: none;
+    padding: 0;
+}
+
+#multiplier-history li {
     font-size: 16px;
-    margin: 0 10px;
+    margin: 0 0 10px; /* Spacing between history items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#cashOut:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+#multiplier-history li:before {
+    content: "▶"; /* Add a bullet symbol before each history item */
+    margin-right: 10px; /* Spacing between the bullet and text */
 }
 
-#betAmount,
-#multiplier {
-    font-size: 24px;
-    margin-top: 10px;
-}
-
-#result {
-    font-size: 20px;
-    margin-top: 20px;
-    font-weight: bold;
-}
-
-#graph {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    background-image: url('/static/images/crash_background.jpg');
-    background-size: 120% 120%;
-    overflow: hidden;
-}
-
-@keyframes zoomOut {
-    from {
-        background-size: 110% 110%;
-    }
-    to {
-        background-size: 120% 120%; /* Adjust the scale as needed */
-    }
-}
-
-#graph.zoom {
-    animation: zoomIn 5s linear; /* Adjust the animation duration as needed */
-}
-
-#rocket {
-    position: absolute;
-    bottom: 0;
-    left: 0; /* Set the initial position to the bottom-left corner */
-    width: 50px;
-    height: 50px;
-    transform-origin: left bottom; /* Rotate around bottom-left corner */
-    transition: bottom 0.5s ease-in-out, left 0.5s ease-in-out; /* Smooth transitions */
-}
-
-#rocket img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: transparent;
+#multiplier-history li:last-child {
+    margin: 0; /* Remove margin from the last history item */
 }

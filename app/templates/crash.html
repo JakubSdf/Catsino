@@ -28,26 +28,39 @@
         <a href="/maty">Slots</a>
         <a href="/blackjack">Blackjack</a>
     </nav>
-        <section id="crash">
-            <h2>Crash</h2>
-            <p>Test your luck in the Crash game!</p>
-            <div id="game-container">
-                <div id="graph">
-                    <div id="rocket">
-                        <img src="static/images/cat.png" alt="Cat in rocket" class="rocket-image">
-                    </div> 
+    <section id="crash">
+        <div id="game-container">
+            <div id="graph-bet-container">
+                <div id="graph-window">
+                        <span id="multiplier-value">x1.00</span>
                 </div>
-                <div id="bet-container">
-                    <label for="betInput">Bet:</label>
-                    <input type="number" id="betInput" min="1" value="10">
+
+    
+                <div id="betting-window">
+                    <label for="bet-amount">Bet Amount:</label>
+                    <input type="text" id="bet-amount">
+                    <button id="place-bet">Place Bet</button>
+                    <button id="cash-out">Cash Out</button>
+                    <div id="presets">
+                        <button class="preset">2</button>
+                        <button class="preset">5</button>
+                        <button class="preset">10</button>
+                    </div>
+                        <div id="countdown">Game starts in: 10 seconds</div>
+                    <div id="game-content">Game Content</div>
                 </div>
-                <button id="placeBet">Place Bet</button>
-                <button id="cashOut" disabled>Cash Out</button>
-                <div id="betAmount">$0.00</div>
-                <div id="multiplier">1.00x</div>
-                <div id="result"></div>
             </div>
-        </section>
+    
+            <div id="history-container">
+                <div id="history-window">
+                    <h2>Multiplier History</h2>
+                    <ul id="multiplier-history">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
     <script src="../static/js/crash.js"></script>
 </body>
 </html>

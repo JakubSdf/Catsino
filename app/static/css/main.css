@@ -1,0 +1,108 @@
+body {
+    background-image: url('../images/cat_background.jpg'); /* Replace 'cat_background.jpg' with your cat-themed background image */
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    text-align: center;
+    background-color: #444;
+    padding: 10px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+#user-info img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+#logout-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+#user-info img,
+#money-counter img {
+    width: 50px; /* Adjust the width as needed (30px * 3) */
+    height: 50px; /* Adjust the height as needed (30px * 3) */
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+
+#money-counter {
+      display: flex;
+      align-items: center;
+  }
+
+  #money-amount {
+      font-size: 24px; /* Adjust the font size as needed */
+  }
+
+  #user-details {
+      display: flex;
+      align-items: center;
+  }
+
+  #user-name {
+      margin-right: 10px; /* Offset the username by 5 pixels to the right */
+  }
+  #timer {
+  margin-right: 10px; /* Add margin-right to create space between timer and logout button */
+}
+#logout-btn {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+  }
