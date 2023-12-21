@@ -67,7 +67,8 @@ nav a:hover {
 }
 
 #money-amount {
-    font-size: 24px;
+    font-size: 40px;
+    padding-right: 10px;
 }
 
 #user-details {
@@ -90,8 +91,8 @@ nav a:hover {
 
 #user-info img,
 #money-counter img {
-  width: 50px; /* Adjust the width as needed (30px * 3) */
-  height: 50px; /* Adjust the height as needed (30px * 3) */
+  width: 70px; /* Adjust the width as needed (30px * 3) */
+  height: 70px; /* Adjust the height as needed (30px * 3) */
   margin-right: 10px;
   border-radius: 50%;
 }
@@ -103,7 +104,7 @@ nav a:hover {
 }
 
 #money-amount {
-    font-size: 24px; /* Adjust the font size as needed */
+    font-size: 30px; /* Adjust the font size as needed */
 }
 
 #user-details {
@@ -125,6 +126,7 @@ margin-right: 10px; /* Add margin-right to create space between timer and logout
     border-radius: 5px;
     cursor: pointer;
     margin-right: 10px;
+    font-size: 20px;
 }
 
 /* GAME CSS */

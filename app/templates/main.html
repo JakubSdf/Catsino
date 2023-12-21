@@ -4,47 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap">
+
     <title>Cat Casino</title>
-        
 </head>
 <body>
     <header>
-      <div id="user-info">
-        <div id="user-details">
-            <img src="../static/images/avatar.jpg" alt="Cat Avatar">
-            <span id="user-name">Guest</span>
+        <div id="header">
+            <nav>
+                <div class="left-section">
+                    <a class="currency">
+                        <img src="../static/images/currency.png" alt="Currency">
+                    </a>
+                    <a class="menu-text">1000</a>
+                </div>
+                <div class="middle-section">
+                    <a href="about" class="hoverable menu-text">About</a>
+                    <a href="home" class="active">
+                        <img src="../static/images/logo.png" alt="Logo">
+                    </a>
+                    <a href="games" class="hoverable menu-text">Games</a>
+                </div>
+                <div class="right-section">
+                    <a href="login" class="hoverable menu-text">Login</a>
+                    <a class="menu-text">Jimi</a>
+                    <a class="profile">
+                        <img src="../static/images/profile.png" alt="Profile">
+                    </a>
+                </div>
+            </nav>
         </div>
-        <span id="timer">Time Remaining: <span id="time-remaining">30:00</span></span>
-        <div id="logout-btn">Odhlásit</div>
-    </div>
-    <div id="money-counter">
-        <img src="../static/images/coin.png" alt="Cat Money">
-        <span id="money-amount">$1000</span>
-    </div>
-</header>
-    <nav>
-        <a href="/ruleta">Roulette</a>
-        <a href="/crash">Crash</a>
-        <a href="/maty">Slots</a>
-        <a href="/blackjack">Blackjack</a>
-    </nav>
-    
-    <div class="container">
-        <section id="roulette">
-            <h2>Roulette</h2>            <!-- Add roulette game content here -->
-        </section>
-        <section id="crash">
-            <h2>Crash</h2>
-            <!-- Add Crash game content here -->
-        </section>
-        <section id="slots">
-            <h2>Slots</h2>
-            <!-- Add Slots game content here -->
-        </section>
-        <section id="blackjack">
-            <h2>Blackjack</h2>
-            <!-- Add Blackjack game content here -->
-        </section>
-    </div>
+    </header>
 </body>
 </html>

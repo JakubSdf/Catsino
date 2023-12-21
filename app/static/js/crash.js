@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function generateCrashPoint() {
         const min = 1; // Minimum crash point
-        const lambda = 0.5; // Adjust the lambda value to control the distribution
+        const lambda = 1; // Adjust the lambda value to control the distribution
     
         let crashPoint;
     
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
                 // Using an exponential function to favor lower values
                 crashPoint = -Math.log(1 - random) / lambda;
-            } while (crashPoint <= 1.01); // Ensure crash point is higher than 1.01
+            } while (crashPoint <= 1.00); // Ensure crash point is higher than 1.01
         }
     
         return crashPoint;

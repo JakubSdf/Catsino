@@ -1,108 +1,87 @@
 body {
-    background-image: url('../images/cat_background.jpg'); /* Replace 'cat_background.jpg' with your cat-themed background image */
-    background-size: cover;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: #1C8A8D; /* Updated color */
+    color: #CAFCD7; /* Updated color */
 }
 
 nav {
-    text-align: center;
-    background-color: #444;
-    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 
-nav a {
+.left-section,
+.middle-section,
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.middle-section {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.middle-section a {
+    margin: 0 10px;
+}
+
+a {
     text-decoration: none;
-    color: #fff;
-    padding: 10px 20px;
+    color: #CAFCD7; /* Updated color */
+    transition: color 0.3s ease;
+    font-size: 30px;
 }
 
-nav a:hover {
-    background-color: #555;
+a:hover {
+    color: #5FD286; /* Updated color */
 }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
+/* Apply hover effect only to specific links with the "hoverable" class */
+.hoverable {
+    text-decoration: none;
+    color: #CAFCD7; /* Updated color */
+    transition: color 0.3s ease;
+    font-size: 30px;
+}
+
+.hoverable:hover {
+    color: #5FD286; /* Updated color */
+}
+
+.active {
+    font-weight: bold;
+}
+
+#header {
+    text-align: center;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
 }
 
-#user-info {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-}
-
-#user-info img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+#header img,
+.profile img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
     border-radius: 50%;
+    margin-right: 5px;
 }
 
-#logout-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+.amount,
+.name {
+    font-size: 20px;
 }
 
-#user-info {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-}
-
-#user-info img,
-#money-counter img {
-    width: 50px; /* Adjust the width as needed (30px * 3) */
-    height: 50px; /* Adjust the height as needed (30px * 3) */
+.right-section a:not(:last-child) {
     margin-right: 10px;
-    border-radius: 50%;
 }
 
-
-#money-counter {
-      display: flex;
-      align-items: center;
-  }
-
-  #money-amount {
-      font-size: 24px; /* Adjust the font size as needed */
-  }
-
-  #user-details {
-      display: flex;
-      align-items: center;
-  }
-
-  #user-name {
-      margin-right: 10px; /* Offset the username by 5 pixels to the right */
-  }
-  #timer {
-  margin-right: 10px; /* Add margin-right to create space between timer and logout button */
+.active {
+    color: #5FD286; /* Updated color */
 }
-#logout-btn {
-      background-color: #f44336;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-right: 10px;
-  }
