@@ -1,156 +1,29 @@
-body {
-    background-image: url('/static/images/crash_main_background.jpg');
-    background-size: cover;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+:root{
+    --dark-blue: #1C8A8D;
+    --dark-green: #5FD286;
+    --light-green: #CAFCD7;
+    --light-blue: #C4DBF8;
+    --pink: #F9B9BC;
 }
-
-header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav {
-    text-align: center;
-    background-color: #444;
-    padding: 10px 0;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px 20px;
-}
-
-nav a:hover {
-    background-color: #555;
-}
-
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 60px;
-    border-radius: 5px;
-}
-
-#user-info {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-}
-
-#user-info img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
-}
-
-#logout-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#money-counter {
-    display: flex;
-    align-items: center;
-}
-
-#money-amount {
-    font-size: 40px;
-    padding-right: 10px;
-}
-
-#user-details {
-    display: flex;
-    align-items: center;
-}
-
-#user-name {
-    margin-right: 10px;
-}
-
-#timer {
-    margin-right: 10px;
-}
-#user-info {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
-}
-
-#user-info img,
-#money-counter img {
-  width: 70px; /* Adjust the width as needed (30px * 3) */
-  height: 70px; /* Adjust the height as needed (30px * 3) */
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
-
-#money-counter {
-    display: flex;
-    align-items: center;
-}
-
-#money-amount {
-    font-size: 30px; /* Adjust the font size as needed */
-}
-
-#user-details {
-    display: flex;
-    align-items: center;
-}
-
-#user-name {
-    margin-right: 10px; /* Offset the username by 5 pixels to the right */
-}
-#timer {
-margin-right: 10px; /* Add margin-right to create space between timer and logout button */
-}
-#logout-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    font-size: 20px;
-}
-
-/* GAME CSS */
 
 #game-container {
-    background-color: #696969; /* Set the background color for your game window */
-    width: 80%; /* Adjust the width as needed */
-    max-width: 800px; /* Adjust the maximum width as needed */
-    margin: 0 auto; /* Center the game window horizontally */
-    padding: 10px;
-    border: 1px solid #000; /* Add a border if desired */
+    background-color: var(--light-blue);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
     border-radius: 5px;
-    display: flex; /* Use flexbox to create a horizontal layout */
+    display: flex;
     justify-content: space-between;
+    padding-top: 120px; /* Add padding to the top to create space between header and game container */
 }
 
 /* GRAPH */
 
 #graph-window {
-    background-color: #222; /* Set the background color for the graph window */
-    color: #fff; /* Text color */
+    background-color: var(--dark-blue); /* Set the background color for the graph window */
+    color: var(--light-blue); /* Text color */
     padding: 70px;
-    border: 1px solid #333; /* Border color */
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
     text-align: center;
     position: relative;
@@ -175,19 +48,19 @@ margin-right: 10px; /* Add margin-right to create space between timer and logout
 #multiplier-value {
     font-weight: bold;
     font-size: 40px; /* Adjust the font size as needed */
-    color: #FFD700; /* Text color for the multiplier value */
+    color: var(--light-blue); /* Text color for the multiplier value */
     padding: 10px'
 }
 
 /* BET WINDOW */
 #betting-window {
-    background-color: #333; /* Background color for the betting window */
-    color: #fff; /* Text color */
+    background-color: var(--dark-blue);
+    color: var(--light-blue);
     padding: 60px;
-    border: 1px solid #555; /* Border color */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
+    margin-top: 10px; /* Add margin to the top to create space between betting and graph windows */
 }
 
 #betting-window label {
@@ -292,10 +165,9 @@ margin-right: 10px; /* Add margin-right to create space between timer and logout
 /* HISTORY */
 
 #history-container {
-    background-color: #333; /* Background color for the history window */
-    color: #fff; /* Text color */
+    background-color: var(--dark-blue); /* Background color for the history window */
+    color: var(--light-blue); /* Text color */
     padding: 60px;
-    border: 1px solid #555; /* Border color */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
 }
