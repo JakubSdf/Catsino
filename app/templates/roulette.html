@@ -2,9 +2,34 @@
 {% block title %}Catsino{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="../static/css/crash.css">
+<link rel="stylesheet" href="../static/css/roulette.css">
 {% endblock %}
+
 {% block content %}
-<h1>Working on it</h1>
-    <script src="../static/js/roulette.js"></script>
+<div id="game-container">
+    <div id="wheel-container">
+        <canvas id="wheel" width="500" height="500"></canvas>
+        <button id="spin-button">Spin</button>
+    </div>
+
+    <div id="betting-container">
+        <canvas id="rouletteTable" width="500" height="100"></canvas>
+        <div id="betting-options">
+            <button id="even-bet">Bet on Even</button>
+            <button id="odd-bet">Bet on Odd</button>
+            <!-- Add more buttons for different betting options as needed -->
+        </div>
+    </div>
+
+    <div id="result-container">
+        <p id="result">Result: <span id="result-text"></span></p>
+    </div>
+
+    <div id="bets-container">
+        <h3>Your Bets:</h3>
+        <ul id="bets-list"></ul>
+    </div>
+</div>
+
+<script src="../static/js/roulette.js"></script>
 {% endblock %}

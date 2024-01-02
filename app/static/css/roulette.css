@@ -1,7 +1,110 @@
-:root{
+:root {
     --dark-blue: #1C8A8D;
     --dark-green: #5FD286;
     --light-green: #CAFCD7;
     --light-blue: #C4DBF8;
     --pink: #F9B9BC;
+}
+
+#game-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#wheel-container,
+#betting-container {
+    text-align: center;
+    padding: 20px;
+}
+
+#wheel {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: var(--dark-green);
+    border-radius: 50%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.number {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    transform-origin: 50% 100%;
+}
+
+#spin-button,
+#even-bet,
+#odd-bet {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#spin-button {
+    margin-top: 20px;
+    background-color: var(--dark-blue);
+    color: white;
+}
+
+#spin-button:hover {
+    background-color: var(--dark-green);
+}
+
+#even-bet {
+    background-color: var(--dark-green);
+    color: white;
+}
+
+#odd-bet {
+    background-color: var(--pink);
+    color: white;
+}
+
+#even-bet:hover,
+#odd-bet:hover {
+    background-color: var(--light-green);
+}
+
+#rouletteTable {
+    width: 500px;
+    height: 100px;
+    background-color: var(--light-blue);
+    margin-bottom: 20px;
+}
+
+#betting-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+#result-container,
+#bets-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#result {
+    font-size: 24px;
+    color: var(--dark-blue);
+}
+
+#bets-list {
+    list-style: none;
+    padding: 0;
+}
+
+#bets-list li {
+    font-size: 16px;
+    margin: 5px 0;
+    color: var(--dark-blue);
 }
