@@ -6,4 +6,29 @@
 {% endblock %}
 {% block content %}
 
+<html>
+  <head>
+    <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Přihlašte se</h1>
+      <br>
+      <form action="/login" method="post">
+        <input type="text" placeholder="Jméno" name="username">
+        <input type="password" placeholder="heslo" name="password">
+        <input class="btn btn-default" type="submit" value="Přihlásit">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+      {% endif %}
+      <br>
+      <a href="{{ url_for('register') }}">
+        <button class="btn btn-info">Registrovat</button>
+      </a>
+    </div>
+  </body>
+</html>
+
 {% endblock %}

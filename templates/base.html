@@ -14,18 +14,19 @@
             <a class="currency">
                 <img src="../static/images/coin.png" alt="Currency">
             </a>
-            <a class="menu-text">1000</a>
+            <a class="menu-text">{{ money }}</a>
+            <a class="menu-text">&nbsp Catcoins</a>
         </div>
         <div class="middle-section">
-            <a href="about" class="hoverable menu-text">About</a>
+            <a href="about" class="hoverable menu-text"> O nás</a>
             <a href="home" class="menu">
                 <img src="../static/images/logo.png" alt="Logo">
             </a>
-            <a href="games" class="hoverable menu-text">Games</a>
+            <a href="games" class="hoverable menu-text">Hry</a>
         </div>
         <div class="right-section">
-            <a href="login" class="hoverable menu-text">Login</a>
-            <a class="menu-text">Jimi</a>
+            <a href="{{ 'logout' if username else 'login' }}" class="hoverable menu-text">{{ 'Odhlásit' if username else 'Přihlásit' }}</a>
+            <a class="menu-text">{{ username }}</a>
             <a class="profile">
                 <img src="../static/images/profile.png" alt="Profile">
             </a>

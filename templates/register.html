@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Cat Casino - Register{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/css/register.css">
+{% endblock %}
+{% block content %}
+
+<html>
+  <head>
+    <title>Flask Intro - Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Please Register</h1>
+      <br>
+      <form action="/register" method="post">
+        <input type="text" placeholder="Username" name="username" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <input type="password" placeholder="Confirm Password" name="confirm_password" required>
+        <input class="btn btn-default" type="submit" value="Register">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
+
+{% endblock %}
