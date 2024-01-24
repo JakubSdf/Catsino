@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block title %}Catsino{% endblock %}
 
 {% block head %}
@@ -13,22 +14,37 @@
     </div>
 
     <div id="betting-container">
-        <canvas id="rouletteTable" width="500" height="100"></canvas>
         <div id="betting-options">
+            <!-- Dynamically generated number betting buttons will be inserted here via JavaScript -->
+        </div>
+        <div id="special-bets-container">
             <button id="even-bet">Bet on Even</button>
             <button id="odd-bet">Bet on Odd</button>
-            <!-- Add more buttons for different betting options as needed -->
+            <div id="bet-amount-container">
+                <div id="bet-amount-options">
+                    <button class="bet-amount-button" data-amount="1">₵ 1</button>
+                    <button class="bet-amount-button" data-amount="5">₵ 5</button>
+                    <button class="bet-amount-button" data-amount="25">₵ 25</button>
+                    <button class="bet-amount-button" data-amount="100">₵ 100</button>
+                    <button class="bet-amount-button" data-amount="200">₵ 200</button>
+                    <button class="bet-amount-button" data-amount="500">₵ 500</button>
+                </div>
+                <button id="clear-bets-button">Clear Bets</button>
+            </div>
+        
         </div>
+        <canvas id="rouletteTable" width="500" height="100"></canvas>
     </div>
 
     <div id="result-container">
-        <p id="result">Result: <span id="result-text"></span></p>
+        <p><span id="result-text"></span></p>
     </div>
 
     <div id="bets-container">
         <h3>Your Bets:</h3>
         <ul id="bets-list"></ul>
     </div>
+    
 </div>
 
 <script src="../static/js/roulette.js"></script>

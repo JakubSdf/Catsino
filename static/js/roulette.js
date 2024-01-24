@@ -1,17 +1,50 @@
 // Variables for the wheel
 var startAngle = 11;
+var initialStartAngle = 11; // Store the initial start angle
 var arc = Math.PI / 18; // 360 degrees divided by the number of options (European roulette has 37 numbers)
 var spinTimeout = null;
 var spinAngleStart = 10;
 var spinTime = 0;
 var spinTimeTotal = 0;
+var selectedBetAmount = 1;
+var selectedNumber;
+var outsideRadius = 250;
+var selectedAngle = 0; // Initialize it to 0
+
 
 // Options for the wheel
 var options = ["0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"];
 
+
 // Get the canvas and context
 var canvas = document.getElementById("wheel");
 var ctx = canvas.getContext("2d");
+
+var betAmountButtons = document.querySelectorAll('.bet-amount-button');
+betAmountButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        selectedBetAmount = this.getAttribute('data-amount'); // Update the bet amount
+        
+        // Highlight the active button
+        document.querySelectorAll('.bet-amount-button.active').forEach(function(activeButton) {
+            activeButton.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // You might want to update the bet placement functions here as well
+    });
+});
+
+var clearBetsButton = document.getElementById("clear-bets-button");
+
+// Add a click event listener to the clear bets button
+clearBetsButton.addEventListener("click", function() {
+    // Clear the bets array
+    bets = [];
+    
+    // Update the bets display
+    updateBets();
+});
 
 // Spin button click event listener
 document.getElementById("spin-button").addEventListener("click", spinWheel);
@@ -19,12 +52,26 @@ document.getElementById("spin-button").addEventListener("click", spinWheel);
 canvas.addEventListener("click", handleCanvasClick);
 
 document.getElementById("even-bet").addEventListener("click", function() {
-    placeBet("Even", 10); // Adjust the bet amount as needed
+    placeBet("Even", selectedBetAmount);
 });
 
 document.getElementById("odd-bet").addEventListener("click", function() {
-    placeBet("Odd", 10); // Adjust the bet amount as needed
+    placeBet("Odd", selectedBetAmount);
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    var bettingOptionsContainer = document.getElementById("betting-options");
+    options.forEach(function(number) {
+        var betButton = document.createElement("button");
+        betButton.textContent = number;
+        betButton.addEventListener("click", function() {
+            var amount = selectedBetAmount // Get the bet amount
+            placeBet(number, amount);
+        });
+        bettingOptionsContainer.appendChild(betButton);
+    });
+});
+
 
 // Function to draw the wheel
 function drawRouletteWheel() {
@@ -32,7 +79,6 @@ function drawRouletteWheel() {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
 
-    var outsideRadius = 250;  // Adjust as needed
     var textRadius = 200;     // Adjust as needed
     var insideRadius = 150;   // Adjust as needed
 
@@ -63,12 +109,14 @@ function drawRouletteWheel() {
         ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
         ctx.restore();
     }
+    
 }
 
 // Function to spin the wheel
 function spinWheel() {
     if (spinTimeout === null) {
-        spinAngleStart = Math.random() * 10 + 10;
+        startAngle = initialStartAngle; // Reset start angle each time before spinning
+        spinAngleStart = Math.random() * 360;
         spinTime = 0;
         spinTimeTotal = Math.random() * 3 + 4 * 1000;
         rotateWheel();
@@ -92,16 +140,20 @@ function rotateWheel() {
 function stopRotateWheel() {
     clearTimeout(spinTimeout);
     spinTimeout = null;
+
     var degrees = startAngle * 180 / Math.PI + 90;
     var arcd = arc * 180 / Math.PI;
     var index = Math.floor((360 - degrees % 360) / arcd);
-    displayResult(options[index]);
-}
 
-// Function to display the result
-function displayResult(result) {
-    var resultElement = document.getElementById("result");
-    resultElement.textContent = result;
+    selectedNumber = parseInt(options[index]);
+    
+    // Recalculate start angle based on where the wheel stopped
+    startAngle = (index * arcd - 90) * Math.PI / 180;
+
+    console.log("Degrees: " + degrees);
+    console.log("Arcd: " + arcd);
+    console.log("Index: " + index);
+    console.log("Selected Number:", selectedNumber);
 }
 
 // Function to update and display bets
@@ -186,8 +238,8 @@ function handleCanvasClick(event) {
 // Function to place a bet
 function placeBet(option, amount) {
     bets.push({ option: option, amount: amount });
-    // You can handle the bet placement as needed
     console.log("Bet placed:", option, amount);
+    updateBets(); // Update the bets display
 }
 
 // Initial draw of the wheel
