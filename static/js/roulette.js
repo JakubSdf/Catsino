@@ -15,6 +15,13 @@ var selectedAngle = 0; // Initialize it to 0
 // Options for the wheel
 var options = ["0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"];
 
+const payouts = {
+    number: 35, // Betting on a single number pays 35 to 1
+    even: 2,    // Betting on even pays 1 to 1
+    odd: 2,     // Betting on odd pays 1 to 1
+    red: 2, // Betting on red pays 1 to 1
+    black: 2, // Betting on black pays 1 to 1
+};
 
 // Get the canvas and context
 var canvas = document.getElementById("wheel");
@@ -52,12 +59,21 @@ document.getElementById("spin-button").addEventListener("click", spinWheel);
 canvas.addEventListener("click", handleCanvasClick);
 
 document.getElementById("even-bet").addEventListener("click", function() {
-    placeBet("Even", selectedBetAmount);
+    placeBet("Sudé", selectedBetAmount);
 });
 
 document.getElementById("odd-bet").addEventListener("click", function() {
-    placeBet("Odd", selectedBetAmount);
+    placeBet("Liché", selectedBetAmount);
 });
+
+document.getElementById("red-bet").addEventListener("click", function() {
+    placeBet("Červenou", selectedBetAmount);
+});
+
+document.getElementById("black-bet").addEventListener("click", function() {
+    placeBet("Černou", selectedBetAmount);
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
     var bettingOptionsContainer = document.getElementById("betting-options");
@@ -72,6 +88,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
+function isRed(number) {
+    // Array of red numbers on a European roulette wheel
+    const redNumbers = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+    return redNumbers.includes(number);
+}
 
 // Function to draw the wheel
 function drawRouletteWheel() {
@@ -149,11 +171,9 @@ function stopRotateWheel() {
     
     // Recalculate start angle based on where the wheel stopped
     startAngle = (index * arcd - 90) * Math.PI / 180;
-
-    console.log("Degrees: " + degrees);
-    console.log("Arcd: " + arcd);
-    console.log("Index: " + index);
-    console.log("Selected Number:", selectedNumber);
+    // Update the HTML with the selected number
+    document.getElementById("winning-number").textContent = "Výherní číslo: " + selectedNumber;
+    evaluateBets(selectedNumber);
 }
 
 // Function to update and display bets
@@ -163,7 +183,12 @@ function updateBets() {
 
     bets.forEach(function(bet) {
         var li = document.createElement("li");
-        li.textContent = bet.amount + " on " + bet.option;
+        // Check if bet.option is a number
+        if (!isNaN(+bet.option)) {
+            li.textContent = "₵ " + bet.amount + " na číslo " + bet.option;
+        } else {
+            li.textContent = "₵ " + bet.amount + " na " + bet.option;
+        }
         betsList.appendChild(li);
     });
 }
@@ -238,9 +263,38 @@ function handleCanvasClick(event) {
 // Function to place a bet
 function placeBet(option, amount) {
     bets.push({ option: option, amount: amount });
-    console.log("Bet placed:", option, amount);
+    console.log("Vsazeno:", option, amount);
     updateBets(); // Update the bets display
 }
+
+function evaluateBets(winningNumber) {
+    let totalWinnings = 0;
+
+    bets.forEach((bet) => {
+        let isWin = false;
+
+        // Check for red/black bets
+        if (bet.option === "Red" && isRed(winningNumber)) {
+            isWin = true;
+        } else if (bet.option === "Black" && !isRed(winningNumber) && winningNumber !== 0) {
+            isWin = true;
+        }
+        // Include your existing conditions here...
+
+        if (isWin) {
+            // Calculate winnings
+            let winnings = bet.amount * (payouts[bet.option.toLowerCase()] || payouts.number);
+            totalWinnings += winnings;
+            console.log(`Bet on ${bet.option} wins! Amount won: ${winnings}`);
+        } else {
+            console.log(`Bet on ${bet.option} loses.`);
+        }
+    });
+
+    console.log(`Celková výhra: ₵ ${totalWinnings}`);
+    return totalWinnings;
+}
+
 
 // Initial draw of the wheel
 drawRouletteWheel();

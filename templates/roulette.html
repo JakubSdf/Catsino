@@ -10,7 +10,8 @@
 <div id="game-container">
     <div id="wheel-container">
         <canvas id="wheel" width="500" height="500"></canvas>
-        <button id="spin-button">Spin</button>
+        <button id="spin-button">Roztočit</button>
+        <h3 id="winning-number">Výherní číslo: </h3>
     </div>
 
     <div id="betting-container">
@@ -18,8 +19,11 @@
             <!-- Dynamically generated number betting buttons will be inserted here via JavaScript -->
         </div>
         <div id="special-bets-container">
-            <button id="even-bet">Bet on Even</button>
-            <button id="odd-bet">Bet on Odd</button>
+            <button id="even-bet">Sudé</button>
+            <button id="odd-bet">Liché</button>
+            <button id="red-bet">Červená</button>
+            <button id="black-bet">Černá</button>
+
             <div id="bet-amount-container">
                 <div id="bet-amount-options">
                     <button class="bet-amount-button" data-amount="1">₵ 1</button>
@@ -29,7 +33,7 @@
                     <button class="bet-amount-button" data-amount="200">₵ 200</button>
                     <button class="bet-amount-button" data-amount="500">₵ 500</button>
                 </div>
-                <button id="clear-bets-button">Clear Bets</button>
+                <button id="clear-bets-button">Vymazat sázky</button>
             </div>
         
         </div>
@@ -41,7 +45,7 @@
     </div>
 
     <div id="bets-container">
-        <h3>Your Bets:</h3>
+        <h3>Vaše sázky</h3>
         <ul id="bets-list"></ul>
     </div>
     
