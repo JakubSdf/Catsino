@@ -123,26 +123,14 @@
 }
 
 .preset {
-    margin-right: 10px; /* Adjust the margin between buttons as needed */
-    text-align: center; /* Center-align the button text */
-    padding: 8px 12px;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
+    padding: 10px;
+    border: 2px solid var(--dark-blue);
+    border-radius: 10px;
     cursor: pointer;
-}
-
-/* Define different background colors for the buttons */
-.preset:nth-child(1) {
-    background-color: #3498db;
-}
-
-.preset:nth-child(2) {
-    background-color: #6d27ae;
-}
-
-.preset:nth-child(3) {
-    background-color: rgb(247, 154, 5);
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
 }
 
 /* Hover effect */

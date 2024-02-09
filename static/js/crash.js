@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentMultiplier = 1.00;
     let betAmount = 0;
     let gameInterval;
-    let countdownTime = 2;
+    let countdownTime = 10;
     let countdownInterval;
     let speedUpInterval;
     let betPlaced = false;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function startGame() {
         if (!gameStarted) {
             gameStarted = true;
-            countdown.textContent = 'Game is running...';
+            countdown.textContent = 'Hra probíhá...';
             gameContent.style.opacity = 0;
 
             const crashPoint = generateCrashPoint();
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     clearInterval(gameInterval);
                     clearInterval(speedUpInterval); // Stop the speedup interval
                     gameStarted = false;
-                    multiplierValue.textContent = `Crashed at x${currentMultiplier.toFixed(2)}`;
+                    multiplierValue.textContent = `Crasnuto na x${currentMultiplier.toFixed(2)}`;
                     historyData.push(currentMultiplier.toFixed(2)); // Add the crashed multiplier to history
                     displayMultiplierHistory();
     
@@ -71,20 +71,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     placeBetButton.disabled = false;
                     placeBetButton.style.backgroundColor = '#4CAF50';
                     betAmountInput.disabled = false;
-                    document.querySelector('label[for="bet-amount"]').textContent = `Bet Amount:`;
+                    document.querySelector('label[for="bet-amount"]').textContent = `Vsazeno:`;
                     cashOutButton.disabled = false;
                     cashOutButton.style.backgroundColor = '#F44336';
     
                     // Handling game outcome display
                     if (betAmount.toFixed(2) > 0.00 && gameContent.textContent === 'Game Content') {
-                        gameContent.textContent = 'You lost $' + betAmount.toFixed(2);
+                        gameContent.textContent = 'Prohrál jsi ₵' + betAmount.toFixed(2);
                         gameContent.style.opacity = 1;
                     }
     
                     // Clear bet amount and reset variables
                     document.getElementById('bet-amount').value = '';
                     betPlaced = false;
-                    countdownTime = 2;
+                    countdownTime = 10;
                     countdownIntervalFnc();
     
                     // Display multiplier history
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 currentMultiplier = 1.00;
                 startGame();
             } else {
-                countdown.textContent = `Game starts in: ${countdownTime} seconds`;
+                countdown.textContent = `Hra začne za: ${countdownTime} sekund`;
                 countdownTime--;
             }
         }, 1000);
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const li = document.createElement('li');
             li.textContent = `x${multiplier}`;
             if (index === 0) {
-                li.textContent += ' (Latest)';
+                li.textContent += ' (Poslední)';
             }
             multiplierHistory.appendChild(li);
         });
@@ -133,8 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
     presetButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             if (!gameStarted && !betPlaced) {
-                const value = button.textContent;
-                betAmountInput.value = value;
+                // Use a regular expression to extract numbers from the button text
+                const value = button.textContent.match(/\d+/); // Match digits
+                if (value) {
+                    betAmountInput.value = value[0]; // Set only the first matched group of digits
+                }
             }
         });
     });
@@ -149,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 placeBetButton.disabled = true;
                 placeBetButton.style.backgroundColor = 'grey';
                 betAmountInput.disabled = true;
-                document.querySelector('label[for="bet-amount"]').textContent = `Bet Amount: $${betAmount.toFixed(2)}`;
+                document.querySelector('label[for="bet-amount"]').textContent = `Vsazeno: ₵ ${betAmount.toFixed(2)}`;
                 betPlaced = true;
             }
         }
@@ -161,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cashOutButton.disabled = true;
             cashOutButton.style.backgroundColor = 'grey';
             gameContent.style.opacity = 1;
-            gameContent.textContent = 'You cashed out at x' + currentMultiplier.toFixed(2) + ' and won $' + (betAmount * currentMultiplier).toFixed(2);
+            gameContent.textContent = 'Vyplatil si v x' + currentMultiplier.toFixed(2) + ' a vyhrál ₵' + (betAmount * currentMultiplier).toFixed(2);
         }
     });
 
