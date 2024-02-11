@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -13,14 +14,39 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
     money = db.Column(db.Integer, default=1500) 
+    transactions = db.relationship('Transaction', backref='user', lazy=True)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
 
 app.secret_key = '1234'  # Set a secret key for session management
+
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    amount_changed = db.Column(db.Float, nullable=False)
+    new_balance = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Transaction {self.id} - User {self.user_id} - Change {self.amount_changed}>'
+
+def update_balance(user, amount_change):
+    new_transaction = Transaction(
+        user_id=user.id,
+        amount_changed=amount_change,
+        new_balance=user.money + amount_change  # Assuming you update user.money separately
+    )
+    db.session.add(new_transaction)
+    user.money += amount_change  # Update the user's balance
+    db.session.commit()
+
+
+
 
 @app.route('/')
 
@@ -75,6 +101,41 @@ def get_balance():
         return jsonify({'error': 'User not found'}), 404
     return jsonify({'balance': round(user.money, 1)})
 
+@app.route('/reset_money', methods=['POST'])
+def reset_money():
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 403
+
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Set the user's money to the default amount, e.g., 1500
+    user.money = 1500
+
+    # Optionally, add a transaction record for the reset
+    db.session.add(Transaction(user_id=user.id, amount_changed=1500 - user.money, new_balance=1500))
+
+    db.session.commit()
+
+    return jsonify({'success': True})
+
+@app.route('/reset_history', methods=['POST'])
+def clear_history():
+    username = session.get('username')
+    if not username:
+        return jsonify({'error': 'Not logged in'}), 403
+
+    user = User.query.filter_by(username=username).first()
+    if user:
+        # Example logic to delete or archive transactions
+        Transaction.query.filter_by(user_id=user.id).delete()
+        db.session.commit()
+        return jsonify({'success': True})
+    else:
+        return jsonify({'error': 'User not found'}), 404
+
+
 
 @app.route('/home')
 def home():
@@ -88,7 +149,6 @@ def ruleta():
 
 @app.route('/bet/roulette', methods=['POST'])
 def roulette_bet():
-    # Assuming session management and user identification are handled
     username = session.get('username')
     if not username:
         return jsonify({'error': 'User not logged in'}), 403
@@ -97,31 +157,32 @@ def roulette_bet():
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    data = request.get_json()  # Get the JSON data sent with the request
+    data = request.get_json()
     bets = data.get('bets')
     clear = data.get('clear')
 
     if clear:
         for bet in bets:
-            user.money += float(bet['amount'])
+            amount = float(bet['amount'])
+            user.money += amount
+            # Record clearing bet transaction
+            db.session.add(Transaction(user_id=user.id, amount_changed=amount, new_balance=user.money))
 
     done_spin = data.get('done_spin')
     if not done_spin and not clear:
         bet_amount = data.get('bet_amount')
         user.money -= float(bet_amount)
-        bet_amount = 0
+        # Record placing bet transaction
+        db.session.add(Transaction(user_id=user.id, amount_changed=-float(bet_amount), new_balance=user.money))
     
     if done_spin:
-        complete_winnings = 0
         winnings = data.get('winnings')
         if int(winnings) > 0:
-            complete_winnings += winnings
-        user.money += complete_winnings  # Update the user's balance with winnings
-            
-    # Save changes to the database
+            user.money += int(winnings)
+            # Record winnings transaction
+            db.session.add(Transaction(user_id=user.id, amount_changed=int(winnings), new_balance=user.money))
+    
     db.session.commit()
-
-    # Return the result and the new balance
     return jsonify({'success': True, 'new_balance': user.money})
 
 
@@ -213,6 +274,18 @@ def inject_username():
 
     return dict(username=username, money=(money))
 
+@app.route('/profile')
+def profile():
+    username = session.get('username')
+    if not username:
+        return redirect(url_for('login'))
+    
+    user = User.query.filter_by(username=username).first()
+    if user:
+        transactions = Transaction.query.filter_by(user_id=user.id).order_by(Transaction.timestamp.desc()).all()
+        return render_template('profile.html', transactions=transactions)
+    else:
+        return redirect(url_for('login'))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,175 @@
+:root{
+    --primary-color: #1C8A8D;
+    --secondary-color: #5FD286;
+    --tertiary-color: #CAFCD7;
+    --quaternary-color: #C4DBF8;
+    --quinary-color: #F9B9BC;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--quaternary-color);
+    color: var(--primary-color);
+}
+
+.reset {
+    text-align: center;
+    margin: 50px auto; /* Center the button container */
+    display: block; /* Ensure it's block-level for auto margins to work */
+    width: fit-content; /* Fit the content's width */
+}
+
+.reset-history-btn,
+.reset-money-btn {
+    font-size: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px; /* Slightly larger padding for a bigger button */
+    border: none;
+    border-radius: 8px; /* Slightly rounder corners */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s; /* Added shadow transition */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+.reset-history-btn:hover, .reset-history-btn:focus,
+.reset-money-btn:hover, .reset-money-btn:focus {
+    background-color: var(--secondary-color); /* Lighter color on hover/focus */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover/focus for a 'lifting' effect */
+}
+
+.history-confirmation-dialog,
+.money-confirmation-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+.history-confirmation-dialog.show,
+.money-confirmation-dialog.show {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: visible;
+}
+
+.history-confirmation-content,
+.money-confirmation-content {
+    transform: translateY(-20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    opacity: 0;
+}
+
+.history-confirmation-dialog.show .history-confirmation-content,
+.money-confirmation-dialog.show .money-confirmation-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.history-confirmation-content
+.money-confirmation-content p {
+    margin-bottom: 20px;
+}
+
+.history-confirmation-content button,
+.money-confirmation-content button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Smooth background transition for buttons */
+}
+
+.history-confirmation-content button:hover,
+.money-confirmation-content button:hover {
+    background-color: var(--secondary-color); /* Subtle hover effect for buttons */
+    color: white;
+}
+
+
+h2 {
+    text-align: center;
+}
+
+.transaction-history {
+    margin: 50px auto;
+    width: 75%; /* Smaller sides for a more centered look */
+    background-color: white;
+    border-collapse: collapse;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Increased for smoother corners */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for the container */
+}
+
+.transaction-history:hover {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-history th, .transaction-history td {
+    text-align: center;
+    padding: 20px; /* Increased padding for symmetry */
+    border-bottom: 2px solid var(--quaternary-color);
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    font-size: 18px; /* Bigger font for readability */
+}
+
+.transaction-history th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.transaction-history td {
+    color: var(--primary-color);
+    background-color: var(--tertiary-color);
+}
+
+.transaction-history tr:nth-child(even) td {
+    background-color: var(--quaternary-color);
+}
+
+.transaction-history tr:hover td {
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+}
+
+/* Enhanced row hover effect */
+.transaction-history tr {
+    transition: transform 0.3s ease;
+}
+
+.transaction-history tr:hover {
+    transform: scale(1.01); /* Subtle scale for focused effect */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .transaction-history {
+        width: 95%; /* Adjust for mobile */
+        margin: 30px auto;
+    }
+
+    .transaction-history th, .transaction-history td {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+}

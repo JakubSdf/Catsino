@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Catsino - Profile{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="../static/css/profile.css">
+{% endblock %}
+
+{% block content %}
+<div class="reset">
+    <button id="reset-money-btn" class="reset-money-btn">Obnovit peníze</button>
+    <button id="reset-history-btn" class="reset-history-btn">Obnovit Historii</button>
+        
+    <div id="money-confirmation-dialog" class="money-confirmation-dialog">
+        <div class="money-confirmation-content">
+            <p>Jste si jisti, že chcete obnovit své peníze?</p>
+            <button id="money-confirm-reset">Ano</button>
+            <button id="money-cancel-reset">Ne</button>
+        </div>
+    </div>
+
+    <div id="history-confirmation-dialog" class="history-confirmation-dialog">
+        <div class="history-confirmation-content">
+            <p>Opravdu chcete obnovit svoji historii?</p>
+            <button id="history-confirm-reset">Ano</button>
+            <button id="history-cancel-reset">Ne</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="transaction-history">
+    <h2>Historie bilance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Změna</th>
+                <th>Nová bilance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ transaction.amount_changed }}</td>
+                <td>{{ transaction.new_balance }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">Nebyly nalezeny žádné transakce.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="../static/js/profile.js"></script>
+{% endblock %}

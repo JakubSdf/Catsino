@@ -54,7 +54,10 @@ h1{
     margin: 0 10px;
 }
 
-
+.profile {
+    margin-top: 5px;
+    border-radius: 50%;
+}
 
 a {
     text-decoration: none;
