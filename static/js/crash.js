@@ -62,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
             gameContent.style.opacity = 0;
 
             const crashPoint = generateCrashPoint();
-            console.log(crashPoint);
 
             let increment = 0.001; // Starting with a slower increment
 
@@ -181,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         betPlaced = true;
                         // Update the UI to reflect the new balance or any other messages
                         // For now, let's just log the new balance
-                        console.log("New balance:", data.new_balance);
                         updateBalance();
                         // Here you could also start the game or update any relevant UI elements
                     } else {
@@ -206,11 +204,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
     // Event listener for cashing out
     cashOutButton.addEventListener('click', function () {
-        console.log('Cashing out 1');
-        console.log(gameStarted, betPlaced);
         if (gameStarted && betPlaced) {
             // Disable the cash out button to prevent multiple submissions
-            console.log("Cashing out 2");
             cashOutButton.disabled = true;
             cashOutButton.style.backgroundColor = 'grey';
     
@@ -229,7 +224,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     // Update the UI to reflect the new balance
-                    console.log("New balance after cash out:", data.new_balance);
                     updateBalance();
                     // Here, update the UI to show the user their new balance and any winnings
                     gameContent.style.opacity = 1;
