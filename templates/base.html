@@ -14,7 +14,7 @@
             <a class="currency">
                 <img src="../static/images/coin.png" alt="Currency">
             </a>
-            <a class="menu-text">{{ money }}</a>
+            <a class="menu-text" id="balance">{{ money }}</a>
             <a class="menu-text">&nbsp Catcoins</a>
         </div>
         <div class="middle-section">
@@ -34,6 +34,24 @@
 </header>
 
 {% block content %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        function updateBalance() {
+            fetch('/get_balance')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.balance !== undefined) {
+                        // Assuming you have an element with the id 'balance' where you display the money
+                        document.getElementById('balance').textContent = `${data.balance}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching balance:', error));
+        }
+    
+        // Update balance every 5 seconds
+        setInterval(updateBalance, 1000);
+    });
+    </script>
 {% endblock %}
 
 </body>

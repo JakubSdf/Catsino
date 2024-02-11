@@ -17,8 +17,19 @@ document.addEventListener('DOMContentLoaded', function () {
     let speedUpInterval;
     let betPlaced = false;
     let historyData = []; // Array to store multiplier history
-
     countdownIntervalFnc();
+
+    
+    window.updateBalance = function() {
+        fetch('/get_balance')
+            .then(response => response.json())
+            .then(data => {
+                if(data.balance !== undefined) {
+                    document.getElementById('balance').textContent = `${data.balance}`;
+                }
+            })
+            .catch(error => console.error('Error fetching balance:', error));
+    }
 
     function generateCrashPoint() {
         const min = 1; // Minimum crash point
@@ -143,33 +154,109 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Event listener for placing a bet
-    placeBetButton.addEventListener('click', function () {
+    // Find this part in your crash.js
+        placeBetButton.addEventListener('click', function () {
         if (!gameStarted) {
-            placeBetButton.disabled = false;
             betAmount = parseFloat(betAmountInput.value);
             if (isNaN(betAmount) || betAmount <= 0) {
+                // You might want to alert the user or handle this case more gracefully
+                alert("Please enter a valid bet amount");
             } else {
+                // Disable bet-related UI elements to prevent multiple submissions
                 placeBetButton.disabled = true;
                 placeBetButton.style.backgroundColor = 'grey';
                 betAmountInput.disabled = true;
-                document.querySelector('label[for="bet-amount"]').textContent = `Vsazeno: ₵ ${betAmount.toFixed(2)}`;
-                betPlaced = true;
+
+                // Send the bet amount to the backend
+                fetch('/bet/crash', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `action=place_bet&bet_amount=${betAmount}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        betPlaced = true;
+                        // Update the UI to reflect the new balance or any other messages
+                        // For now, let's just log the new balance
+                        console.log("New balance:", data.new_balance);
+                        updateBalance();
+                        // Here you could also start the game or update any relevant UI elements
+                    } else {
+                        // Handle errors, such as insufficient funds or not logged in
+                        alert(data.error);
+                        // Re-enable the UI for correcting the bet or logging in
+                        placeBetButton.disabled = false;
+                        placeBetButton.style.backgroundColor = '#4CAF50';
+                        betAmountInput.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Re-enable the UI in case of network error or other failure
+                    placeBetButton.disabled = false;
+                    placeBetButton.style.backgroundColor = '#4CAF50';
+                    betAmountInput.disabled = false;
+                });
             }
         }
-    });
-
+        });
+        
     // Event listener for cashing out
     cashOutButton.addEventListener('click', function () {
+        console.log('Cashing out 1');
+        console.log(gameStarted, betPlaced);
         if (gameStarted && betPlaced) {
+            // Disable the cash out button to prevent multiple submissions
+            console.log("Cashing out 2");
             cashOutButton.disabled = true;
             cashOutButton.style.backgroundColor = 'grey';
-            gameContent.style.opacity = 1;
-            gameContent.textContent = 'Vyplatil si v x' + currentMultiplier.toFixed(2) + ' a vyhrál ₵' + (betAmount * currentMultiplier).toFixed(2);
+    
+            // Assuming you have a way to get the currentMultiplier
+            let currentMultiplierValue = currentMultiplier;  // This should be the current value of the multiplier when cashing out
+    
+            // Send the cash out request to the backend
+            fetch('/bet/crash', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `action=cash_out&bet_amount=${betAmount}&multiplier=${currentMultiplierValue}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the UI to reflect the new balance
+                    console.log("New balance after cash out:", data.new_balance);
+                    updateBalance();
+                    // Here, update the UI to show the user their new balance and any winnings
+                    gameContent.style.opacity = 1;
+                    gameContent.textContent = `Vyplatil si v x${currentMultiplierValue.toFixed(2)} a vyhrál ₵ ${(betAmount * currentMultiplierValue).toFixed(2)}`;
+                    // Reset UI and game state as needed
+                } else {
+                    // Handle errors
+                    alert(data.error);
+                    // Optionally re-enable the cash out button if you want to allow retries
+                    cashOutButton.disabled = false;
+                    cashOutButton.style.backgroundColor = '#F44336';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Re-enable the cash out button in case of network error or other failure
+                cashOutButton.disabled = false;
+                cashOutButton.style.backgroundColor = '#F44336';
+            });
         }
     });
+    
 
     // Event listener for bet amount input
     betAmountInput.addEventListener('input', function () {
         betAmountInput.value = betAmountInput.value.replace(/[^0-9.]/g, '');
     });
 });
+
+

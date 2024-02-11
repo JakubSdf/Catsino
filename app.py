@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import session
@@ -66,6 +66,15 @@ def register():
     
     return render_template('register.html')
 
+@app.route('/get_balance')
+def get_balance():
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 403
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify({'balance': user.money})
+
 
 @app.route('/home')
 def home():
@@ -80,7 +89,53 @@ def ruleta():
 def crash():
     return render_template('crash.html')
 
+@app.route('/bet/crash', methods=['POST'])
+def crash_bet():
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 403
 
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    action = request.form.get('action')
+    bet_amount = request.form.get('bet_amount', type=int)
+
+    if bet_amount is None or bet_amount <= 0:
+        return jsonify({'error': 'Invalid bet amount'}), 400
+
+    if action == 'place_bet':
+        # Check if user has enough money to place the bet
+        if user.money < bet_amount:
+            return jsonify({'error': 'Insufficient funds'}), 400
+
+        # Deduct the bet amount from the user's balance
+        user.money -= bet_amount
+        user.money = round(user.money, 1)
+        db.session.commit()
+
+        # Here you could start the game logic or simply return success
+        # Since this is an example, we're directly returning success
+        return jsonify({'success': True, 'message': 'Bet placed', 'new_balance': user.money})
+
+    elif action == 'cash_out':
+        multiplier = request.form.get('multiplier', type=float)
+        if not multiplier or multiplier <= 0:
+            return jsonify({'error': 'Invalid multiplier value'}), 400
+
+        # Calculate winnings based on the multiplier
+        # Assuming the bet was already deducted when placed, we add winnings only
+        winnings = bet_amount * multiplier
+        user.money += winnings  # Update user's balance with winnings
+        user.money = round(user.money, 1)
+        
+        db.session.commit()
+
+        return jsonify({'success': True, 'message': 'Cashed out successfully', 'new_balance': user.money})
+
+    else:
+        return jsonify({'error': 'Invalid action'}), 400
+    
 @app.route('/blackjack')
 def blackjack():
     return render_template('blackjack.html')
