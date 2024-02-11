@@ -7,11 +7,13 @@ var spinAngleStart = 10;
 var spinTime = 0;
 var spinTimeTotal = 0;
 var selectedBetAmount = 1;
+let doneSpinning = false;
 var selectedNumber;
+let doneBet = false;
 var outsideRadius = 250;
 var selectedAngle = 0; // Initialize it to 0
-
-
+const isOdd = number => number % 2 !== 0;
+const resultContent = document.getElementById('result-content');
 // Options for the wheel
 var options = ["0", "32", "15", "19", "4", "21", "2", "25", "17", "34", "6", "27", "13", "36", "11", "30", "8", "23", "10", "5", "24", "16", "33", "1", "20", "14", "31", "9", "22", "18", "29", "7", "28", "12", "35", "3", "26"];
 
@@ -28,6 +30,8 @@ var canvas = document.getElementById("wheel");
 var ctx = canvas.getContext("2d");
 
 var betAmountButtons = document.querySelectorAll('.bet-amount-button');
+
+
 betAmountButtons.forEach(function(button) {
     button.addEventListener('click', function() {
         selectedBetAmount = this.getAttribute('data-amount'); // Update the bet amount
@@ -47,8 +51,19 @@ var clearBetsButton = document.getElementById("clear-bets-button");
 // Add a click event listener to the clear bets button
 clearBetsButton.addEventListener("click", function() {
     // Clear the bets array
+    var clear = true;
+    fetch('/bet/roulette', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            clear: clear,
+            bets: bets
+        })
+    })
     bets = [];
-    
+    updateBalance();
     // Update the bets display
     updateBets();
 });
@@ -160,6 +175,8 @@ function rotateWheel() {
 
 // Function to stop rotating the wheel
 function stopRotateWheel() {
+    doneSpinning = true;
+    doneBet = true;
     clearTimeout(spinTimeout);
     spinTimeout = null;
 
@@ -174,10 +191,22 @@ function stopRotateWheel() {
     // Update the HTML with the selected number
     document.getElementById("winning-number").textContent = "Výherní číslo: " + selectedNumber;
     evaluateBets(selectedNumber);
+
 }
 
 // Function to update and display bets
 function updateBets() {
+    window.updateBalance = function() {
+        fetch('/get_balance')
+            .then(response => response.json())
+            .then(data => {
+                if(data.balance !== undefined) {
+                    document.getElementById('balance').textContent = `${data.balance}`;
+                }
+            })
+            .catch(error => console.error('Error fetching balance:', error));
+    }
+
     var betsList = document.getElementById("bets-list");
     betsList.innerHTML = ""; // Clear previous bets
 
@@ -191,6 +220,7 @@ function updateBets() {
         }
         betsList.appendChild(li);
     });
+    updateBalance();
 }
 
 // Function to ease out the spinning
@@ -262,38 +292,109 @@ function handleCanvasClick(event) {
 
 // Function to place a bet
 function placeBet(option, amount) {
+    if (doneBet){
+        bets = [];
+    }
     bets.push({ option: option, amount: amount });
-    console.log("Vsazeno:", option, amount);
+    doneBet = false;
     updateBets(); // Update the bets display
+    fetch('/bet/roulette', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            bet_option: option, // Ensure you're sending the bet option
+            bet_amount: amount,
+            // Add any other necessary data
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            updateBalance(); // Update balance after the bet has been processed
+        } else {
+            console.error('Bet processing failed:', data.error);
+        }
+    })
+    .catch(error => console.error('Error placing bet:', error));
 }
 
 function evaluateBets(winningNumber) {
+    // Assuming you've already determined the winningNumber
     let totalWinnings = 0;
+    let totalLosses = 0;
 
+    // Iterate through all placed bets to evaluate them
     bets.forEach((bet) => {
+
+        let betsLength = bets.length;
         let isWin = false;
+        let winnings = 0;
+        // Translation for bet options if needed (adjust according to your needs)
+        let betOption = translateBetOption(bet.option);
 
-        // Check for red/black bets
-        if (bet.option === "Red" && isRed(winningNumber)) {
+        // Check for winning conditions
+        if (betOption === "red" && isRed(winningNumber)) {
             isWin = true;
-        } else if (bet.option === "Black" && !isRed(winningNumber) && winningNumber !== 0) {
+        } else if (betOption === "black" && !isRed(winningNumber) && winningNumber !== 0) {
+            isWin = true;
+        } else if (betOption === "odd" && isOdd(winningNumber)) {
+            isWin = true;
+        } else if (betOption === "even" && !isOdd(winningNumber) && winningNumber !== 0) {
+            isWin = true;
+        } else if (parseInt(betOption) === winningNumber) { // Direct number bet
             isWin = true;
         }
-        // Include your existing conditions here...
 
+        // Calculate winnings or losses
         if (isWin) {
-            // Calculate winnings
-            let winnings = bet.amount * (payouts[bet.option.toLowerCase()] || payouts.number);
+            winnings = bet.amount * (payouts[betOption] || payouts.number); // Use appropriate payout
             totalWinnings += winnings;
-            console.log(`Bet on ${bet.option} wins! Amount won: ${winnings}`);
         } else {
-            console.log(`Bet on ${bet.option} loses.`);
+            totalLosses += bet.amount;
         }
+
+        resultContent.textContent = `Celková výhra: ₵ ${totalWinnings}`;
+
+
+        // Send bet result to server
+        fetch('/bet/roulette', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                done_spin: doneSpinning,
+                bets_length: betsLength,
+                winnings: totalWinnings // Send winnings to adjust balance server-side
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                //updatePlayerBalanceDisplay(data.new_balance); // Update balance display
+            }
+        })
+        .catch(error => console.error('Error:', error));
     });
 
-    console.log(`Celková výhra: ₵ ${totalWinnings}`);
-    return totalWinnings;
+    // After processing all bets, clear them
+    updateBets(); // Clear displayed bets
+    updateBalance();
 }
+
+function translateBetOption(option) {
+    // This function translates bet options from your UI language to English if necessary
+    switch (option) {
+        case "Červenou": return "red";
+        case "Černou": return "black";
+        case "Liché": return "odd";
+        case "Sudé": return "even";
+        default: return option; // Direct number bets or already in English
+    }
+}
+
 
 
 // Initial draw of the wheel

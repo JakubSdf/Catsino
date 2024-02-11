@@ -52,7 +52,8 @@
     background-color: var(--dark-green);
 }
 
-#winning-number {
+#winning-number,
+#result-content{
     background-color: var(--dark-blue); /* light khaki background */
     color: white; /* dark red text color */
     padding: 10px;

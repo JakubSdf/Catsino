@@ -73,7 +73,7 @@ def get_balance():
     user = User.query.filter_by(username=session['username']).first()
     if not user:
         return jsonify({'error': 'User not found'}), 404
-    return jsonify({'balance': user.money})
+    return jsonify({'balance': round(user.money, 1)})
 
 
 @app.route('/home')
@@ -83,6 +83,46 @@ def home():
 @app.route('/roulette')
 def ruleta():
     return render_template('roulette.html')
+
+
+
+@app.route('/bet/roulette', methods=['POST'])
+def roulette_bet():
+    # Assuming session management and user identification are handled
+    username = session.get('username')
+    if not username:
+        return jsonify({'error': 'User not logged in'}), 403
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.get_json()  # Get the JSON data sent with the request
+    bets = data.get('bets')
+    clear = data.get('clear')
+
+    if clear:
+        for bet in bets:
+            user.money += float(bet['amount'])
+
+    done_spin = data.get('done_spin')
+    if not done_spin and not clear:
+        bet_amount = data.get('bet_amount')
+        user.money -= float(bet_amount)
+        bet_amount = 0
+    
+    if done_spin:
+        complete_winnings = 0
+        winnings = data.get('winnings')
+        if int(winnings) > 0:
+            complete_winnings += winnings
+        user.money += complete_winnings  # Update the user's balance with winnings
+            
+    # Save changes to the database
+    db.session.commit()
+
+    # Return the result and the new balance
+    return jsonify({'success': True, 'new_balance': user.money})
 
 
 @app.route('/crash')
@@ -171,8 +211,7 @@ def inject_username():
     else:
         money = ""
 
-    print(f"Money for user {username}: {money}") 
-    return dict(username=username, money=money)
+    return dict(username=username, money=(money))
 
 
 
