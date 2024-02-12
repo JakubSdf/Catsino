@@ -9,7 +9,7 @@ var spinTimeTotal = 0;
 var selectedBetAmount = 1;
 let doneSpinning = false;
 var selectedNumber;
-let doneBet = false;
+let currentUserBalance = 0;
 var outsideRadius = 250;
 var selectedAngle = 0; // Initialize it to 0
 const isOdd = number => number % 2 !== 0;
@@ -47,6 +47,19 @@ betAmountButtons.forEach(function(button) {
 });
 
 var clearBetsButton = document.getElementById("clear-bets-button");
+
+
+fetch('/get_balance')
+.then(response => response.json())
+.then(data => {
+    if(data.balance !== undefined) {
+        currentUserBalance = data.balance;
+        document.getElementById('balance').textContent = `${data.balance}`;
+    }
+})
+.catch(error => console.error('Error fetching balance:', error));
+
+
 
 // Add a click event listener to the clear bets button
 clearBetsButton.addEventListener("click", function() {
@@ -102,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function() {
         bettingOptionsContainer.appendChild(betButton);
     });
 });
-
 
 function isRed(number) {
     // Array of red numbers on a European roulette wheel
@@ -176,7 +188,6 @@ function rotateWheel() {
 // Function to stop rotating the wheel
 function stopRotateWheel() {
     doneSpinning = true;
-    doneBet = true;
     clearTimeout(spinTimeout);
     spinTimeout = null;
 
@@ -192,20 +203,24 @@ function stopRotateWheel() {
     document.getElementById("winning-number").textContent = "Výherní číslo: " + selectedNumber;
     evaluateBets(selectedNumber);
 
+    bets = [];
 }
 
 // Function to update and display bets
 function updateBets() {
+
     window.updateBalance = function() {
         fetch('/get_balance')
             .then(response => response.json())
             .then(data => {
                 if(data.balance !== undefined) {
+                    currentUserBalance = data.balance;
                     document.getElementById('balance').textContent = `${data.balance}`;
                 }
             })
             .catch(error => console.error('Error fetching balance:', error));
     }
+
 
     var betsList = document.getElementById("bets-list");
     betsList.innerHTML = ""; // Clear previous bets
@@ -292,32 +307,37 @@ function handleCanvasClick(event) {
 
 // Function to place a bet
 function placeBet(option, amount) {
-    if (doneBet){
-        bets = [];
+    console.log("here");
+    const betAmountNum = Number(amount);
+
+    console.log("User balance: " + currentUserBalance + " Bet amount: " + betAmountNum)
+    if (currentUserBalance < betAmountNum){
+        alert("Nemáš dostatek peněz na tuto sázku");
     }
-    bets.push({ option: option, amount: amount });
-    doneBet = false;
-    updateBets(); // Update the bets display
-    fetch('/bet/roulette', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            bet_option: option, // Ensure you're sending the bet option
-            bet_amount: amount,
-            // Add any other necessary data
+    else{
+        bets.push({ option: option, amount: amount });
+        updateBets(); // Update the bets display
+        fetch('/bet/roulette', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                bet_option: option, // Ensure you're sending the bet option
+                bet_amount: amount,
+                // Add any other necessary data
+            })
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            updateBalance(); // Update balance after the bet has been processed
-        } else {
-            console.error('Bet processing failed:', data.error);
-        }
-    })
-    .catch(error => console.error('Error placing bet:', error));
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateBalance(); // Update balance after the bet has been processed
+            } else {
+                console.error('Bet processing failed:', data.error);
+            }
+        })
+        .catch(error => console.error('Error placing bet:', error));
+    }
 }
 
 function evaluateBets(winningNumber) {
@@ -395,7 +415,4 @@ function translateBetOption(option) {
     }
 }
 
-
-
-// Initial draw of the wheel
 drawRouletteWheel();
