@@ -173,6 +173,8 @@ function rotateWheel() {
     spinTimeout = setTimeout(rotateWheel, 30);
 }
 
+
+
 // Function to stop rotating the wheel
 function stopRotateWheel() {
     doneSpinning = true;

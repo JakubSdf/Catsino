@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let historyData = []; // Array to store multiplier history
     countdownIntervalFnc();
 
+   
     
+
     window.updateBalance = function() {
         fetch('/get_balance')
             .then(response => response.json())
@@ -40,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Generate a random value to occasionally set the crash point to 1.01
         const randomValue = Math.random();
     
-        if (randomValue < 0.1) { // 5% chance of getting 1.01
+        if (randomValue < 0.1) { // 5% chance of getting 1.00
             crashPoint = 1.00;
         } else {
             do {
@@ -123,6 +125,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 1000);
     }
+
+    window.addEventListener('beforeunload', function(e) {
+        if (!gameStarted && betPlaced) {
+            navigator.sendBeacon('/refund_bet', new URLSearchParams({ 'bet_amount': betAmount }));
+        }
+    });
+    
 
     function displayMultiplierHistory() {
         multiplierHistory.innerHTML = '';
@@ -227,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     updateBalance();
                     // Here, update the UI to show the user their new balance and any winnings
                     gameContent.style.opacity = 1;
-                    gameContent.textContent = `Vyplatil si v x${currentMultiplierValue.toFixed(2)} a vyhrál ₵ ${(betAmount * currentMultiplierValue).toFixed(2)}`;
+                    gameContent.textContent = `Vyplatil jsi v x${currentMultiplierValue.toFixed(2)} a vyhrál ₵ ${(betAmount * currentMultiplierValue).toFixed(2)}`;
                     // Reset UI and game state as needed
                 } else {
                     // Handle errors

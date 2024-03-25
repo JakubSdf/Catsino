@@ -139,7 +139,7 @@ def clear_history():
 
 @app.route('/home')
 def home():
-    return render_template('main.html')
+    return render_template('home.html')
 
 @app.route('/roulette')
 def ruleta():
@@ -237,6 +237,36 @@ def crash_bet():
     else:
         return jsonify({'error': 'Invalid action'}), 400
     
+@app.route('/refund_bet', methods=['POST'])
+def refund_bet():
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 403
+
+    user = User.query.filter_by(username=session['username']).first()
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.json
+    if not data:
+        return jsonify({'error': 'No data provided'}), 400
+
+    game_type = data.get('game_type')
+    bets = data.get('bets', [])
+    
+    if not game_type or not bets:
+        return jsonify({'error': 'Invalid request'}), 400
+
+    total_refund_amount = sum(bet.get('amount', 0) for bet in bets if bet.get('amount', 0) > 0)
+
+    # Update the user's balance
+    if total_refund_amount > 0:
+        user.money += total_refund_amount
+        db.session.add(Transaction(user_id=user.id, amount_changed=total_refund_amount, new_balance=user.money))
+        db.session.commit()
+
+    return jsonify({'success': True, 'message': f'Bet refunded for {game_type}', 'new_balance': user.money})
+
+
 @app.route('/blackjack')
 def blackjack():
     return render_template('blackjack.html')
