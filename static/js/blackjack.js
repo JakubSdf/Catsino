@@ -130,20 +130,20 @@ function stay() {
 
     let message = "";
     if (yourSum > 21) {
-        message = "Prohráls!";
+        message = "Prohrál jsi!";
     }
     else if (dealerSum > 21) {
-        message = "Vyhráls!";
+        message = "Vyhrál jsi!";
     }
 
     else if (yourSum == dealerSum) {
         message = "Remíza!";
     }
     else if (yourSum > dealerSum) {
-        message = "Vyhráls!";
+        message = "Vyhrál jsi!";
     }
     else if (yourSum < dealerSum) {
-        message = "Prohráls!";
+        message = "Prohrál jsi!";
     }
 
     document.getElementById("dealer-sum").innerText = dealerSum;

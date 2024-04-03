@@ -2,8 +2,33 @@
 {% block title %}Cat Casino - Slots{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="../static/css/slots.css">
+<link rel="stylesheet" href="../static/css/slots.css">
 {% endblock %}
 {% block content %}
 
+<div id="app">
+    <div class="doors">
+      <div class="door">
+        <div class="boxes">
+        </div>
+      </div>
+  
+      <div class="door">
+        <div class="boxes">
+        </div>
+      </div>
+  
+      <div class="door">
+        <div class="boxes">
+        </div>
+      </div>
+    </div>
+  
+    <div class="buttons">
+      <button id="spinner">Točky!!</button>
+      <button id="reseter">Znovu?</button>
+    </div>
+    <p class="info"></p>
+  </div>¨
+  <script src="../static/js/slots.js"></script>
 {% endblock %}
