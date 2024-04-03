@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Catsino{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="../static/css/home.css">
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="cs">
+<body>
+
+<h1>Naše Hry</h1>
+
+<div class="game-container">
+    <section id="blackjack">
+        <h2>Blackjack</h2>
+        <p><strong>Popis:</strong> Blackjack je karetní hra, kde cílem je porazit deleara dosažením součtu bodů blíže k 21 než dealer, aniž byste překročili 21.</p>
+        <p><strong>Pravidla:</strong> Hráči obdrží dvě karty a rozhodnou, zda budou chtít další karty, aby se přiblížili k 21. dealer musí brát karty do 17 bodů.</p>
+        <p><strong>Šance na výhru:</strong> V Blackjacku závisí vaše šance na výhru na strategii, kterou používáte, a pravidlech hry. Obecně platí, že s optimální strategií se RTP (Return to Player) pohybuje kolem 99%.</p>
+      </section>
+
+    <section id="roulette">
+        <h2>Ruleta (Evropská)</h2>
+        <p><strong>Popis:</strong> Evropská ruleta je hra, kde hráči sází na to, kde skončí kulička po roztočení kola s čísly.</p>
+        <p><strong>Pravidla:</strong> Hráči umisťují sázky na jednotlivá čísla, skupiny čísel nebo barvy (červená/černá). Poté dealer roztočí kolo s kuličkou.</p>
+        <p><strong>Šance na výhru:</strong> Šance na výhru pro sázky na jednu barvu (červená nebo černá) je přibližně 48.65%, díky jediné nule na evropské ruletě.</p>
+      </section>
+
+    <section id="slots">
+        <h2>Automaty (Slots)</h2>
+        <p><strong>Popis:</strong> Automaty jsou hry na principu náhody, kde hráči vkládají peníze a spouštějí válce s různými symboly, kde doufají pro získání výherní kombinace.</p>
+        <p><strong>Pravidla:</strong> Hráč vloží sázku a spustí automat. Výhra závisí na tom, jaké symboly se zastaví na výherní linii.</p>
+        <p><strong>Šance na výhru:</strong> Automaty mají různé RTP hodnoty, které se obvykle pohybují od 92% do 98%. Konkrétní šance na výhru jsou náhodné a každá hra je nezávislá.</p>
+      </section>
+
+    <section id="crash">
+        <h2>Crash Hra</h2>
+        <p><strong>Popis:</strong> Crash je rychlá hra, kde hráči sází na to, jak vysoko půjde multiplikátor než "crashne". Je to hra rizika a načasování.</p>
+        <p><strong>Pravidla:</strong> Hráči umístí sázku, než hra začne, a sledují, jak multiplikátor roste. Mohou kdykoliv vybrat svou sázku, ale pokud to neudělají předtím, než hra "crashne", ztrácejí svou sázku.</p>
+        <p><strong>Šance na výhru:</strong> Šance jsou ovlivněny algoritmem hry, který je navržen tak, aby byl spravedlivý, ale zároveň výhodný pro kasino.</p>
+      </section>
+</div>
+
+</body>
+</html>
+{% endblock %}
