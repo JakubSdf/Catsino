@@ -251,9 +251,9 @@ def games():
     return render_template('games.html')
 
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/theory')
+def theory():
+    return render_template('theory.html')
 
 @app.route('/logout')
 def logout():
