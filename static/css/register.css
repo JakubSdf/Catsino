@@ -1,7 +1,54 @@
-:root{
-    --primary-color: #1C8A8D;
-    --secondary-color: #5FD286;
-    --tertiary-color: #CAFCD7;
-    --quaternary-color: #C4DBF8;
-    --quinary-color: #F9B9BC;
+:root {
+    --dark-blue: #1C8A8D;
+    --dark-green: #5FD286;
+    --light-green: #CAFCD7;
+    --light-blue: #C4DBF8;
+    --pink: #F9B9BC;
+}
+
+/* Container for the registration form */
+.container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white; /* Consistent with the login page */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style adjustments for input fields */
+.container input[type="text"],
+.container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid var(--dark-blue); /* Consistent with the login page */
+    font-size: 16px;
+}
+
+/* Styling for the registration button */
+.container .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: var(--dark-blue); /* Utilizing a consistent button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Since the hover effect is not desired, we won't include it here */
+
+/* Error message styling */
+.error {
+    color: var(--pink); /* Utilizes the pink color for error messages */
+    background-color: #f2dede; /* Soft red background for contrast */
+    padding: 10px;
+    margin-top: 1rem;
+    border-radius: 5px;
+    text-align: center;
 }
