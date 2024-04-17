@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let countdownInterval;
     let speedUpInterval;
     let betPlaced = false;
-    let historyData = []; // Array to store multiplier history
+    let historyData = []; 
     countdownIntervalFnc();
 
     
@@ -32,27 +32,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function generateCrashPoint() {
-        const min = 1; // Minimum crash point
-        const lambda = 1; // Adjust the lambda value to control the distribution
-    
+        const min = 1; 
+        const lambda = 1; 
         let crashPoint;
     
-        // Generate a random value to occasionally set the crash point to 1.01
         const randomValue = Math.random();
     
-        if (randomValue < 0.1) { // 5% chance of getting 1.01
+        if (randomValue < 0.1) { 
             crashPoint = 1.00;
         } else {
             do {
                 const random = Math.random();
-    
-                // Using an exponential function to favor lower values
                 crashPoint = -Math.log(1 - random) / lambda;
-            } while (crashPoint <= 1.00); // Ensure crash point is higher than 1.01
-        }
-    
-        return crashPoint;
-            
+            } while (crashPoint <= 1.00); 
+        return crashPoint;        
     }
 
     function startGame() {
@@ -63,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const crashPoint = generateCrashPoint();
 
-            let increment = 0.001; // Starting with a slower increment
+            let increment = 0.001; 
 
             gameInterval = setInterval(function () {
                 currentMultiplier += increment;
@@ -71,13 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 if (currentMultiplier >= crashPoint) {
                     clearInterval(gameInterval);
-                    clearInterval(speedUpInterval); // Stop the speedup interval
+                    clearInterval(speedUpInterval); 
                     gameStarted = false;
                     multiplierValue.textContent = `Crasnuto na x${currentMultiplier.toFixed(2)}`;
-                    historyData.push(currentMultiplier.toFixed(2)); // Add the crashed multiplier to history
+                    historyData.push(currentMultiplier.toFixed(2)); 
                     displayMultiplierHistory();
     
-                    // Restoring button and input field states
+                  
                     placeBetButton.disabled = false;
                     placeBetButton.style.backgroundColor = '#4CAF50';
                     betAmountInput.disabled = false;
@@ -85,26 +78,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     cashOutButton.disabled = false;
                     cashOutButton.style.backgroundColor = '#F44336';
     
-                    // Handling game outcome display
+                    
                     if (betAmount.toFixed(2) > 0.00 && gameContent.textContent === 'Game Content') {
                         gameContent.textContent = 'Prohrál jsi ₵' + betAmount.toFixed(2);
                         gameContent.style.opacity = 1;
                     }
     
-                    // Clear bet amount and reset variables
+               
                     document.getElementById('bet-amount').value = '';
                     betPlaced = false;
                     countdownTime = 10;
                     countdownIntervalFnc();
     
-                    // Display multiplier history
+                  
                     displayMultiplierHistory();
                 }
-                increment *= 1.02; // Multiply the increment for exponential growth
+                increment *= 1.02; 
             }, 100);
 
             speedUpInterval = setInterval(function () {
-                currentMultiplier += 0.001; // Maintain a steady increase
+                currentMultiplier += 0.001; 
                 multiplierValue.textContent = `x${currentMultiplier.toFixed(2)}`;
             }, 100);
         
@@ -127,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayMultiplierHistory() {
         multiplierHistory.innerHTML = '';
 
-        const lastTenMultipliers = historyData.slice(-10).reverse(); // Retrieve the last ten multipliers and reverse the order
+        const lastTenMultipliers = historyData.slice(-10).reverse();
 
         lastTenMultipliers.forEach(function (multiplier, index) {
             const li = document.createElement('li');
@@ -139,34 +132,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Event listener for preset buttons
+   
     presetButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             if (!gameStarted && !betPlaced) {
-                // Use a regular expression to extract numbers from the button text
-                const value = button.textContent.match(/\d+/); // Match digits
+             
+                const value = button.textContent.match(/\d+/); 
                 if (value) {
-                    betAmountInput.value = value[0]; // Set only the first matched group of digits
+                    betAmountInput.value = value[0]; 
                 }
             }
         });
     });
 
-    // Event listener for placing a bet
-    // Find this part in your crash.js
         placeBetButton.addEventListener('click', function () {
         if (!gameStarted) {
             betAmount = parseFloat(betAmountInput.value);
             if (isNaN(betAmount) || betAmount <= 0) {
-                // You might want to alert the user or handle this case more gracefully
+              
                 alert("Please enter a valid bet amount");
             } else {
-                // Disable bet-related UI elements to prevent multiple submissions
+              
                 placeBetButton.disabled = true;
                 placeBetButton.style.backgroundColor = 'grey';
                 betAmountInput.disabled = true;
 
-                // Send the bet amount to the backend
                 fetch('/bet/crash', {
                     method: 'POST',
                     headers: {
@@ -178,14 +168,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(data => {
                     if (data.success) {
                         betPlaced = true;
-                        // Update the UI to reflect the new balance or any other messages
-                        // For now, let's just log the new balance
                         updateBalance();
-                        // Here you could also start the game or update any relevant UI elements
                     } else {
-                        // Handle errors, such as insufficient funds or not logged in
                         alert(data.error);
-                        // Re-enable the UI for correcting the bet or logging in
                         placeBetButton.disabled = false;
                         placeBetButton.style.backgroundColor = '#4CAF50';
                         betAmountInput.disabled = false;
@@ -193,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // Re-enable the UI in case of network error or other failure
                     placeBetButton.disabled = false;
                     placeBetButton.style.backgroundColor = '#4CAF50';
                     betAmountInput.disabled = false;
@@ -202,17 +186,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         });
         
-    // Event listener for cashing out
     cashOutButton.addEventListener('click', function () {
         if (gameStarted && betPlaced) {
-            // Disable the cash out button to prevent multiple submissions
             cashOutButton.disabled = true;
             cashOutButton.style.backgroundColor = 'grey';
     
-            // Assuming you have a way to get the currentMultiplier
-            let currentMultiplierValue = currentMultiplier;  // This should be the current value of the multiplier when cashing out
+            let currentMultiplierValue = currentMultiplier;  
     
-            // Send the cash out request to the backend
             fetch('/bet/crash', {
                 method: 'POST',
                 headers: {
@@ -223,34 +203,25 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Update the UI to reflect the new balance
                     updateBalance();
-                    // Here, update the UI to show the user their new balance and any winnings
                     gameContent.style.opacity = 1;
                     gameContent.textContent = `Vyplatil si v x${currentMultiplierValue.toFixed(2)} a vyhrál ₵ ${(betAmount * currentMultiplierValue).toFixed(2)}`;
-                    // Reset UI and game state as needed
                 } else {
-                    // Handle errors
                     alert(data.error);
-                    // Optionally re-enable the cash out button if you want to allow retries
                     cashOutButton.disabled = false;
                     cashOutButton.style.backgroundColor = '#F44336';
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Re-enable the cash out button in case of network error or other failure
                 cashOutButton.disabled = false;
                 cashOutButton.style.backgroundColor = '#F44336';
             });
         }
     });
-    
-
-    // Event listener for bet amount input
     betAmountInput.addEventListener('input', function () {
         betAmountInput.value = betAmountInput.value.replace(/[^0-9.]/g, '');
     });
-});
+}});
 
 

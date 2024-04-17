@@ -41,7 +41,6 @@
                 .then(response => response.json())
                 .then(data => {
                     if(data.balance !== undefined) {
-                        // Assuming you have an element with the id 'balance' where you display the money
                         document.getElementById('balance').textContent = `${data.balance}`;
                     }
                 })

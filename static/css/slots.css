@@ -40,7 +40,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px; /* Adjust as needed */
+  margin-bottom: 20px; 
 }
 
 .door {
@@ -50,7 +50,7 @@ body {
   height: 150px;
   overflow: hidden;
   border-radius: 1ex;
-  margin: 0 10px; /* Adjust as needed */
+  margin: 0 10px; 
 }
 
 .boxes {
@@ -65,13 +65,13 @@ body {
 }
 
 .buttons {
-  margin-top: 20px; /* Adjust as needed */
+  margin-top: 20px;
 }
 
 button {
   cursor: pointer;
   font-size: 1.2rem;
   text-transform: uppercase;
-  margin: 0 5px; /* Adjust as needed */
+  margin: 0 5px; 
 }
 

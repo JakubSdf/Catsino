@@ -22,8 +22,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1C8A8D; /* Updated color */
-    color: #CAFCD7; /* Updated color */
+    background-color: #1C8A8D; 
+    color: #CAFCD7; 
     font-size: 20px;
 }
 
@@ -61,23 +61,22 @@ h1{
 
 a {
     text-decoration: none;
-    color: #CAFCD7; /* Updated color */
+    color: #CAFCD7; 
     transition: color 0.3s ease;
     font-size: 30px;
 }
 
 
 
-/* Apply hover effect only to specific links with the "hoverable" class */
 .hoverable {
     text-decoration: none;
-    color: #CAFCD7; /* Updated color */
+    color: #CAFCD7;
     transition: color 0.3s ease;
     font-size: 30px;
 }
 
 .hoverable:hover {
-    color: #5FD286; /* Updated color */
+    color: #5FD286;
 }
 
 .active {

@@ -1,9 +1,8 @@
 document.getElementById('reset-money-btn').addEventListener('click', function() {
-    document.getElementById('money-confirmation-dialog').classList.add('show'); // Show the dialog using class
+    document.getElementById('money-confirmation-dialog').classList.add('show');
 });
 
 document.getElementById('money-confirm-reset').addEventListener('click', function() {
-    // Proceed with the reset
     fetch('/reset_money', {
         method: 'POST',
         headers: {
@@ -13,26 +12,26 @@ document.getElementById('money-confirm-reset').addEventListener('click', functio
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.reload(); // Reload to reflect the change
+            window.location.reload();
         } else {
-            alert("There was an issue resetting your money."); // Or implement a more styled notification
+            alert("There was an issue resetting your money."); 
         }
     })
     .catch(error => console.error('Error:', error));
-    document.getElementById('money-confirmation-dialog').classList.remove('show'); // Hide the dialog
+    document.getElementById('money-confirmation-dialog').classList.remove('show'); 
 });
 
 document.getElementById('money-cancel-reset').addEventListener('click', function() {
-    document.getElementById('money-confirmation-dialog').classList.remove('show'); // Hide the dialog without resetting
+    document.getElementById('money-confirmation-dialog').classList.remove('show'); 
 });
 
 
 document.getElementById('reset-history-btn').addEventListener('click', function() {
-    document.getElementById('history-confirmation-dialog').classList.add('show'); // Show the dialog using class
+    document.getElementById('history-confirmation-dialog').classList.add('show'); 
 });
 
 document.getElementById('history-confirm-reset').addEventListener('click', function() {
-    // Proceed with the reset
+   
     fetch('/reset_history', {
         method: 'POST',
         headers: {
@@ -42,15 +41,15 @@ document.getElementById('history-confirm-reset').addEventListener('click', funct
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.reload(); // Reload to reflect the change
+            window.location.reload(); 
         } else {
-            alert("There was an issue resetting your history."); // Or implement a more styled notification
+            alert("There was an issue resetting your history."); 
         }
     })
     .catch(error => console.error('Error:', error));
-    document.getElementById('history-confirmation-dialog').classList.remove('show'); // Hide the dialog
+    document.getElementById('history-confirmation-dialog').classList.remove('show');
 });
 
 document.getElementById('history-cancel-reset').addEventListener('click', function() {
-    document.getElementById('history-confirmation-dialog').classList.remove('show'); // Hide the dialog without resetting
+    document.getElementById('history-confirmation-dialog').classList.remove('show'); 
 });

@@ -19,9 +19,9 @@
 
 .game-container {
     display: flex;
-    flex-wrap: wrap; /* Allow games to wrap to the next line on smaller screens */
+    flex-wrap: wrap; 
     justify-content: center;
-    gap: 20px; /* Spacing between game-box elements */
+    gap: 20px;
 }
 
 .game-box {
@@ -32,26 +32,26 @@
     overflow: hidden;
     box-shadow: 4px 10px 12px rgba(0, 0, 0, 0.4);
     position: relative;
-    transition: transform 0.3s ease-in-out; /* Add smooth transition effect on hover */
+    transition: transform 0.3s ease-in-out; 
     display: flex;
-    flex-direction: column; /* Change flex-direction to column */
-    justify-content: space-between; /* Space items evenly vertically */
+    flex-direction: column; 
+    justify-content: space-between; 
 }
 
 .game-box:hover {
-    transform: scale(1.05); /* Increase size on hover */
+    transform: scale(1.05); 
 }
 
 .game-img {
     width: 100%;
     height: 65%;
-    overflow: hidden; /* Hide overflowing content */
+    overflow: hidden; 
 }
 
 .game-img img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Maintain aspect ratio and cover entire container */
+    object-fit: cover; 
 }
 
 .game-play {
@@ -77,12 +77,12 @@
     box-shadow: 5px 10px 30px rgba(255, 217, 0, 0.4);
     border-radius: 10px;
     color: black;
-    margin-top: auto; /* Adjusted margin */
+    margin-top: auto; 
     font-weight: 500;
     transition: 0.3s ease-out;
     font-size: 20px;
 }
 
 .btn:hover {
-    background-color: #f9bcbc; /* Darker color on hover */
+    background-color: #f9bcbc;
 }

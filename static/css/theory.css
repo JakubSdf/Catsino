@@ -10,7 +10,7 @@
     max-width: 800px;
     margin: 2rem auto;
     padding: 1rem;
-    background-color: white; /* Light background to contrast with the base background */
+    background-color: white; 
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -36,7 +36,7 @@
 .container dl {
     font-size: 16px;
     line-height: 1.6;
-    color: #333; /* Dark color for text to ensure readability */
+    color: #333; 
     margin-left: 1rem;
     margin-top: 0.5rem;
 }
@@ -51,7 +51,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* Ensuring <dt> elements are inline with their <dd> descriptions for a compact look */
+
 .container dt {
     display: inline-block;
 }
@@ -62,7 +62,6 @@
 }
 
 
-/* Resetting <dd> elements to the next line */
 .container dd::after {
     content: "";
     display: block;

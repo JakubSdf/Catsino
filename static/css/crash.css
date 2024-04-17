@@ -14,24 +14,23 @@
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
-    padding-top: 120px; /* Add padding to the top to create space between header and game container */
+    padding-top: 120px; 
 }
 
-/* GRAPH */
 
 #graph-window {
-    background-color: var(--dark-blue); /* Set the background color for the graph window */
-    color: var(--light-blue); /* Text color */
+    background-color: var(--dark-blue); 
+    color: var(--light-blue); 
     padding: 70px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
     text-align: center;
     position: relative;
 }
 
 #graph-window h1 {
     font-size: 24px;
-    margin: 0 0 20px; /* Spacing below the heading */
+    margin: 0 0 20px; 
 }
 
 #graph-window p {
@@ -41,14 +40,14 @@
 #graph-window img {
     max-width: 100%;
     height: auto;
-    display: block; /* Center the image within the container */
+    display: block; 
     margin: 0 auto;
 }
 
 #multiplier-value {
     font-weight: bold;
-    font-size: 40px; /* Adjust the font size as needed */
-    color: var(--light-blue); /* Text color for the multiplier value */
+    font-size: 40px; 
+    color: var(--light-blue);
     padding: 10px'
 }
 
@@ -60,7 +59,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     text-align: center;
-    margin-top: 10px; /* Add margin to the top to create space between betting and graph windows */
+    margin-top: 10px; 
 }
 
 #betting-window label {
@@ -69,14 +68,14 @@
 }
 
 #bet-amount {
-    width: 125px; /* Adjust the width of the input field as needed */
+    width: 125px; 
     font-size: 18px;
     padding: 8px;
-    border: 1px solid #777; /* Input border color */
+    border: 1px solid #777; 
     border-radius: 5px;
     margin: 10px 0;
-    color: #333; /* Input text color */
-    background-color: #fff; /* Input background color */
+    color: #333; 
+    background-color: #fff; 
 }
 
 
@@ -90,15 +89,15 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #2ecc71; /* Change color to your preference */
+    background-color: #2ecc71;
     color: #fff;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Add transitions for smooth effects */
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; 
 }
 
 #place-bet:hover {
-    background-color: #27ae60; /* Darken the color slightly on hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a slight shadow on hover */
-    transform: scale(1.05); /* Slightly scale the button on hover */
+    background-color: #27ae60;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); 
 }
 
 #cash-out {
@@ -106,15 +105,15 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #e74c3c; /* Change color to your preference */
+    background-color: #e74c3c; 
     color: #fff;
-    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Add transitions for smooth effects */
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; 
 }
 
 #cash-out:hover {
-    background-color: #c0392b; /* Darken the color slightly on hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Add a slight shadow on hover */
-    transform: scale(1.05); /* Slightly scale the button on hover */
+    background-color: #c0392b; 
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+    transform: scale(1.05);
 }
 
 #presets {
@@ -133,7 +132,7 @@
     transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
 }
 
-/* Hover effect */
+
 .preset:hover {
     opacity: 0.8;
 }
@@ -150,19 +149,19 @@
     opacity: 0;
 }
 
-/* HISTORY */
+
 
 #history-container {
-    background-color: var(--dark-blue); /* Background color for the history window */
-    color: var(--light-blue); /* Text color */
+    background-color: var(--dark-blue); 
+    color: var(--light-blue); 
     padding: 60px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a subtle box shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #history-window h2 {
     font-size: 22px;
-    margin: 0 0 20px; /* Spacing below the heading */
+    margin: 0 0 20px; 
 }
 
 #multiplier-history {
@@ -172,17 +171,17 @@
 
 #multiplier-history li {
     font-size: 16px;
-    margin: 0 0 10px; /* Spacing between history items */
+    margin: 0 0 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 #multiplier-history li:before {
-    content: "▶"; /* Add a bullet symbol before each history item */
-    margin-right: 10px; /* Spacing between the bullet and text */
+    content: "▶"; 
+    margin-right: 10px;
 }
 
 #multiplier-history li:last-child {
-    margin: 0; /* Remove margin from the last history item */
+    margin: 0; 
 }

@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import session
+from flask import session 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
@@ -22,8 +22,7 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
-
-app.secret_key = '1234'  # Set a secret key for session management
+app.secret_key = '1234'  
 
 class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -39,14 +38,11 @@ def update_balance(user, amount_change):
     new_transaction = Transaction(
         user_id=user.id,
         amount_changed=amount_change,
-        new_balance=user.money + amount_change  # Assuming you update user.money separately
+        new_balance=user.money + amount_change  
     )
     db.session.add(new_transaction)
-    user.money += amount_change  # Update the user's balance
+    user.money += amount_change  
     db.session.commit()
-
-
-
 
 @app.route('/')
 
@@ -110,10 +106,8 @@ def reset_money():
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
-    # Set the user's money to the default amount, e.g., 1500
     user.money = 1500
 
-    # Optionally, add a transaction record for the reset
     db.session.add(Transaction(user_id=user.id, amount_changed=1500 - user.money, new_balance=1500))
 
     db.session.commit()
@@ -128,7 +122,6 @@ def clear_history():
 
     user = User.query.filter_by(username=username).first()
     if user:
-        # Example logic to delete or archive transactions
         Transaction.query.filter_by(user_id=user.id).delete()
         db.session.commit()
         return jsonify({'success': True})
@@ -165,21 +158,18 @@ def roulette_bet():
         for bet in bets:
             amount = float(bet['amount'])
             user.money += amount
-            # Record clearing bet transaction
             db.session.add(Transaction(user_id=user.id, amount_changed=amount, new_balance=user.money))
 
     done_spin = data.get('done_spin')
     if not done_spin and not clear:
         bet_amount = data.get('bet_amount')
         user.money -= float(bet_amount)
-        # Record placing bet transaction
         db.session.add(Transaction(user_id=user.id, amount_changed=-float(bet_amount), new_balance=user.money))
     
     if done_spin:
         winnings = data.get('winnings')
         if int(winnings) > 0:
             user.money += int(winnings)
-            # Record winnings transaction
             db.session.add(Transaction(user_id=user.id, amount_changed=int(winnings), new_balance=user.money))
     
     db.session.commit()
@@ -206,17 +196,11 @@ def crash_bet():
         return jsonify({'error': 'Invalid bet amount'}), 400
 
     if action == 'place_bet':
-        # Check if user has enough money to place the bet
         if user.money < bet_amount:
             return jsonify({'error': 'Insufficient funds'}), 400
-
-        # Deduct the bet amount from the user's balance
         user.money -= bet_amount
         user.money = round(user.money, 1)
         db.session.commit()
-
-        # Here you could start the game logic or simply return success
-        # Since this is an example, we're directly returning success
         return jsonify({'success': True, 'message': 'Bet placed', 'new_balance': user.money})
 
     elif action == 'cash_out':
@@ -224,10 +208,8 @@ def crash_bet():
         if not multiplier or multiplier <= 0:
             return jsonify({'error': 'Invalid multiplier value'}), 400
 
-        # Calculate winnings based on the multiplier
-        # Assuming the bet was already deducted when placed, we add winnings only
         winnings = bet_amount * multiplier
-        user.money += winnings  # Update user's balance with winnings
+        user.money += winnings  
         user.money = round(user.money, 1)
         
         db.session.commit()

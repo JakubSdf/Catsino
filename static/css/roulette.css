@@ -54,13 +54,13 @@
 
 #winning-number,
 #result-content{
-    background-color: var(--dark-blue); /* light khaki background */
-    color: white; /* dark red text color */
+    background-color: var(--dark-blue);
+    color: white;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
-    font-size: 1.5em; /* larger text size */
+    font-size: 1.5em; 
     font-weight: bold;
     text-align: center;
 }
@@ -88,8 +88,8 @@
 
 #betting-options {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* Creates a 6-column grid */
-    gap: 5px; /* Adjust gap size as needed */
+    grid-template-columns: repeat(6, 1fr); 
+    gap: 5px; 
     padding: 10px;
     background-color: var(--light-blue);
 }
@@ -97,11 +97,11 @@
 #betting-options button {
     aspect-ratio: 1;
     padding: 0;
-    width: 50px; /* Square dimensions */
+    width: 50px; 
     height: 50px;
-    line-height: 50px; /* For vertical centering */
+    line-height: 50px;
     margin: 5px;
-    font-size: 16px; /* Adjusted font size */
+    font-size: 16px; 
     color: white;
     text-align: center;
     border: none;
@@ -149,19 +149,19 @@
 }
 
 #bets-list::-webkit-scrollbar {
-    width: 12px; /* Width of the scrollbar */
+    width: 12px; 
     margin: 5px;
 }
 
 #bets-list::-webkit-scrollbar-track {
-    background: var(--light-blue); /* Color of the track */
-    border-radius: 10px; /* Rounded corners on the track */
+    background: var(--light-blue); 
+    border-radius: 10px; 
 }
 
 #bets-list::-webkit-scrollbar-thumb {
-    background-color: var(--dark-blue); /* Color of the scrollbar thumb */
-    border-radius: 10px; /* Rounded corners on the thumb */
-    border: 3px solid var(--light-blue); /* Creates a border around the thumb */
+    background-color: var(--dark-blue); 
+    border-radius: 10px; 
+    border: 3px solid var(--light-blue); 
 }
 
 #bets-list {
@@ -169,8 +169,7 @@
     padding: 0;
     margin: 0;
     overflow-y: auto;
-    /* Add padding-right to create space between the text and the scrollbar */
-    padding-right: 20px; /* Adjust this value as needed */
+    padding-right: 20px; 
     max-height: 620px;
 }
 
@@ -193,7 +192,7 @@
     font-weight: bold;
 }
 
-/* Style for the container of bet amount options and input */
+
 #bet-amount-options-container {
     display: flex;
     justify-content: center;
@@ -202,7 +201,6 @@
     text-align: center;
 }
 
-/* Style for the bet amount options (buttons) */
 .bet-amount-options {
     display: flex;
     flex-wrap: wrap;
@@ -232,14 +230,14 @@
     border-color: var(--dark-green);
 }
 
-/* Style for the bet amount input */
+
 #bet-amount {
     padding: 10px;
     border: 2px solid var(--dark-blue);
     border-radius: 10px;
     font-size: 16px;
     text-align: center;
-    width: 60px; /* Adjust width as needed */
+    width: 60px; 
     margin-left: 10px;
     outline: none;
     transition: border-color 0.3s;
@@ -254,17 +252,17 @@
     margin-top: 10px;
     background-color: var(--dark-blue);
     color: white;
-    border: 2px solid var(--dark-blue); /* Border style similar to bet-amount */
-    border-radius: 10px; /* Border radius similar to bet-amount */
+    border: 2px solid var(--dark-blue);
+    border-radius: 10px; 
     font-size: 16px;
     text-align: center;
-    width: 100px; /* Adjust width as needed */
+    width: 100px; 
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s; /* Added border-color transition */
+    transition: background-color 0.3s, border-color 0.3s; 
     outline: none;
 }
 
 #clear-bets-button:hover {
-    background-color: var(--dark-green); /* Lighter pink color on hover */
+    background-color: var(--dark-green); 
 }
 

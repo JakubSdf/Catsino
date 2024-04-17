@@ -11,16 +11,15 @@
     
     ];
   
-    
+  
     const doors = document.querySelectorAll(".door");
     document.querySelector("#spinner").addEventListener("click", spin);
     document.querySelector("#reseter").addEventListener("click", init);
     
     async function spin() {
       init(false, 1, 2);
-      let doorsCompleted = 0; // Keep track of how many doors have completed spinning
-      
-      // Modified to wait for all doors to finish spinning
+      let doorsCompleted = 0; 
+    
       for (const door of doors) {
         const boxes = door.querySelector(".boxes");
         const duration = parseInt(boxes.style.transitionDuration);
@@ -28,7 +27,7 @@
         await new Promise((resolve) => setTimeout(() => {
           doorsCompleted++;
           if (doorsCompleted === doors.length) {
-            checkWinCondition(); // Check for win after all doors have spun
+            checkWinCondition(); 
           }
           resolve();
         }, duration * 100));
@@ -36,13 +35,11 @@
     }
     
     function checkWinCondition() {
-      // Fetch the first box of each door
       const firstBoxSymbols = Array.from(doors).map(door => door.querySelector('.box').textContent);
     
-      // Check if all symbols are the same
       const win = firstBoxSymbols.every((symbol, _, arr) => symbol === arr[0]);
       if (win) {
-        alert("Winner Winner Chicken Dinner"); // Display winning message
+        alert("Winner Winner Chicken Dinner"); 
       }
     }
     

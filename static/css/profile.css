@@ -14,9 +14,9 @@ body {
 
 .reset {
     text-align: center;
-    margin: 50px auto; /* Center the button container */
-    display: block; /* Ensure it's block-level for auto margins to work */
-    width: fit-content; /* Fit the content's width */
+    margin: 50px auto; 
+    display: block; 
+    width: fit-content; 
 }
 
 .reset-history-btn,
@@ -24,17 +24,17 @@ body {
     font-size: 20px;
     background-color: var(--primary-color);
     color: white;
-    padding: 15px 30px; /* Slightly larger padding for a bigger button */
+    padding: 15px 30px;
     border: none;
-    border-radius: 8px; /* Slightly rounder corners */
+    border-radius: 8px; 
     cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s; /* Added shadow transition */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }
 .reset-history-btn:hover, .reset-history-btn:focus,
 .reset-money-btn:hover, .reset-money-btn:focus {
-    background-color: var(--secondary-color); /* Lighter color on hover/focus */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover/focus for a 'lifting' effect */
+    background-color: var(--secondary-color); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
 .history-confirmation-dialog,
@@ -91,12 +91,12 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.2s ease; /* Smooth background transition for buttons */
+    transition: background-color 0.2s ease; 
 }
 
 .history-confirmation-content button:hover,
 .money-confirmation-content button:hover {
-    background-color: var(--secondary-color); /* Subtle hover effect for buttons */
+    background-color: var(--secondary-color);
     color: white;
 }
 
@@ -107,13 +107,13 @@ h2 {
 
 .transaction-history {
     margin: 50px auto;
-    width: 75%; /* Smaller sides for a more centered look */
+    width: 75%; 
     background-color: white;
     border-collapse: collapse;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 12px; /* Increased for smoother corners */
+    border-radius: 12px; 
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for the container */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .transaction-history:hover {
@@ -127,10 +127,10 @@ h2 {
 
 .transaction-history th, .transaction-history td {
     text-align: center;
-    padding: 20px; /* Increased padding for symmetry */
+    padding: 20px; 
     border-bottom: 2px solid var(--quaternary-color);
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-    font-size: 18px; /* Bigger font for readability */
+    transition: background-color 0.3s ease; 
+    font-size: 18px; 
 }
 
 .transaction-history th {
@@ -153,23 +153,22 @@ h2 {
     cursor: pointer;
 }
 
-/* Enhanced row hover effect */
 .transaction-history tr {
     transition: transform 0.3s ease;
 }
 
 .transaction-history tr:hover {
-    transform: scale(1.01); /* Subtle scale for focused effect */
+    transform: scale(1.01); 
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .transaction-history {
-        width: 95%; /* Adjust for mobile */
+        width: 95%; 
         margin: 30px auto;
     }
 
     .transaction-history th, .transaction-history td {
-        padding: 15px; /* Adjust padding for smaller screens */
+        padding: 15px; 
     }
 }
