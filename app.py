@@ -56,7 +56,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         
         if user is None or not user.check_password(password):
-            error = 'Invalid Credentials. Please try again.'
+            error = 'Špatný login nebo heslo zkuste to znovu.'
         else:
             session['username'] = username
             return redirect(url_for('home'))
@@ -73,10 +73,10 @@ def register():
 
         user = User.query.filter_by(username=username).first()
         if user:
-            return render_template('register.html', error='Username already exists')
+            return render_template('register.html', error='Uživatelské jméno již něko používá')
 
         if password != confirm_password:
-            return render_template('register.html', error='Passwords do not match')
+            return render_template('register.html', error='Hesla se neshodují')
 
         new_user = User(username=username, money=1500)
         new_user.set_password(password)

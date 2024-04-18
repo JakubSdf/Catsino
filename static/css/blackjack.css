@@ -1,3 +1,11 @@
+:root{
+    --primary-color: #1C8A8D;
+    --secondary-color: #5FD286;
+    --tertiary-color: #CAFCD7;
+    --quaternary-color: #C4DBF8;
+    --quinary-color: #F9B9BC;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;

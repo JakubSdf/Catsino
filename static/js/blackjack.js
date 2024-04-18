@@ -10,10 +10,10 @@ let deck;
 
 let canHit = true; 
 
-document.getElementById('deal').addEventListener("click", zacatek);
+document.getElementById('deal').addEventListener("click", NewGame);
 
 
-function zacatek() {
+function NewGame() {
     cleartable();
     buildDeck();
     shuffleDeck();
