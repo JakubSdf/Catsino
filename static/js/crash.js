@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function generateCrashPoint() {
         const min = 1; 
-        const lambda = 1; 
+        const lambda = 1;
+    
         let crashPoint;
     
         const randomValue = Math.random();
@@ -43,9 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             do {
                 const random = Math.random();
+    
                 crashPoint = -Math.log(1 - random) / lambda;
             } while (crashPoint <= 1.00); 
-        return crashPoint;        
+        }
+    
+        return crashPoint;
+            
     }
 
     function startGame() {
@@ -70,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     historyData.push(currentMultiplier.toFixed(2)); 
                     displayMultiplierHistory();
     
-                  
                     placeBetButton.disabled = false;
                     placeBetButton.style.backgroundColor = '#4CAF50';
                     betAmountInput.disabled = false;
@@ -78,19 +82,16 @@ document.addEventListener('DOMContentLoaded', function () {
                     cashOutButton.disabled = false;
                     cashOutButton.style.backgroundColor = '#F44336';
     
-                    
                     if (betAmount.toFixed(2) > 0.00 && gameContent.textContent === 'Game Content') {
                         gameContent.textContent = 'Prohrál jsi ₵' + betAmount.toFixed(2);
                         gameContent.style.opacity = 1;
                     }
     
-               
                     document.getElementById('bet-amount').value = '';
                     betPlaced = false;
                     countdownTime = 10;
                     countdownIntervalFnc();
     
-                  
                     displayMultiplierHistory();
                 }
                 increment *= 1.02; 
@@ -120,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function displayMultiplierHistory() {
         multiplierHistory.innerHTML = '';
 
-        const lastTenMultipliers = historyData.slice(-10).reverse();
+        const lastTenMultipliers = historyData.slice(-10).reverse(); 
 
         lastTenMultipliers.forEach(function (multiplier, index) {
             const li = document.createElement('li');
@@ -132,12 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-   
     presetButtons.forEach(function(button) {
         button.addEventListener('click', function() {
             if (!gameStarted && !betPlaced) {
-             
-                const value = button.textContent.match(/\d+/); 
+                const value = button.textContent.match(/\d+/);
                 if (value) {
                     betAmountInput.value = value[0]; 
                 }
@@ -149,10 +148,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!gameStarted) {
             betAmount = parseFloat(betAmountInput.value);
             if (isNaN(betAmount) || betAmount <= 0) {
-              
                 alert("Please enter a valid bet amount");
             } else {
-              
                 placeBetButton.disabled = true;
                 placeBetButton.style.backgroundColor = 'grey';
                 betAmountInput.disabled = true;
@@ -219,9 +216,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+    
+
     betAmountInput.addEventListener('input', function () {
         betAmountInput.value = betAmountInput.value.replace(/[^0-9.]/g, '');
     });
-}});
-
+});
 
