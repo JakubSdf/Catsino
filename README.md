@@ -27,7 +27,7 @@ Pro instalaci a spuštění Catsino na vašem lokálním počítači postupujte 
 
 1. Klonujte repozitář nebo stáhněte jako ZIP:
     ```
-    git clone https://github.com/vasejmeno/catsino.git
+    git clone https://github.com/Vikous28/Catsino.git
     ```
     
 2. Přejděte do kořenového adresáře projektu a nainstalujte potřebné závislosti:
